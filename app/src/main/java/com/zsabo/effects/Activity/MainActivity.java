@@ -10,6 +10,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.zsabo.effects.R;
+import com.zsabo.effects.Utilities.FragmentNavigation;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,7 +23,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initAppBar();
-
+        FragmentNavigation.getInstance().initComponents(this);
+        FragmentNavigation.getInstance().showAudioStreamFragment();
     }
 
     @Override
