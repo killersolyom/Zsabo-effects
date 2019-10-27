@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.leanback.widget.ArrayObjectAdapter;
 import androidx.leanback.widget.ClassPresenterSelector;
@@ -12,21 +13,20 @@ import androidx.leanback.widget.ItemBridgeAdapter;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-
+import com.zsabo.effects.Communication.AudioStreamItemInterface;
 import com.zsabo.effects.Models.AudioFile;
 import com.zsabo.effects.Presenter.AudioItemPresenter;
 import com.zsabo.effects.R;
+import com.zsabo.effects.Utilities.AudioPlayerManager;
 import com.zsabo.effects.Utilities.ResourceReader;
 
-import java.util.ArrayList;
-
-public class AudioStreamFragment extends Fragment {
+public class AudioStreamFragment extends Fragment implements AudioStreamItemInterface {
 
     private View view;
     private ItemBridgeAdapter adapter;
+    private AudioPlayerManager audioPlayer;
     private RecyclerView soundRecyclerView;
     private ArrayObjectAdapter objectAdapter;
-    private AudioItemPresenter audioItemPresenter;
     private ClassPresenterSelector presenterSelector;
 
     public AudioStreamFragment() {
@@ -38,14 +38,15 @@ public class AudioStreamFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (view == null) {
             presenterSelector = new ClassPresenterSelector();
             adapter = new ItemBridgeAdapter();
             objectAdapter = new ArrayObjectAdapter();
+            audioPlayer = new AudioPlayerManager(getContext());
             view = inflater.inflate(R.layout.fragment_audio_stream, container, false);
             soundRecyclerView = view.findViewById(R.id.audio_recycler_view);
-            soundRecyclerView.setLayoutManager(new GridLayoutManager(this.getContext(), 2));
+            soundRecyclerView.setLayoutManager(new GridLayoutManager(this.getContext(), 3));
             initPresenters();
         }
         return view;
@@ -67,9 +68,13 @@ public class AudioStreamFragment extends Fragment {
     }
 
     private ClassPresenterSelector setUpPresenter() {
-        audioItemPresenter = new AudioItemPresenter();
+        AudioItemPresenter audioItemPresenter = new AudioItemPresenter(this);
         presenterSelector.addClassPresenter(AudioFile.class, audioItemPresenter);
         return presenterSelector;
     }
 
+    @Override
+    public void onItemClick(AudioFile audioFile) {
+        audioPlayer.playAudio(audioFile);
+    }
 }

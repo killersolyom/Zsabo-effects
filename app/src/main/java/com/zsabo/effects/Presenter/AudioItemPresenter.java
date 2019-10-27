@@ -1,32 +1,29 @@
 package com.zsabo.effects.Presenter;
 
 
-import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.leanback.widget.Presenter;
 
-import com.bumptech.glide.Glide;
+import com.zsabo.effects.Communication.AudioStreamItemInterface;
+import com.zsabo.effects.CustomView.AudioItemView;
 import com.zsabo.effects.Models.AudioFile;
 import com.zsabo.effects.R;
 
 
 public class AudioItemPresenter extends Presenter {
 
-    private Context context;
+    private AudioStreamItemInterface eventInterface;
 
-    public AudioItemPresenter() {
-
+    public AudioItemPresenter(AudioStreamItemInterface mInterface) {
+        eventInterface = mInterface;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent) {
-        context = parent.getContext();
-        return new PresenterViewHolder(View.inflate(parent.getContext(), R.layout.audio_item_view, null));
+        return new PresenterViewHolder(View.inflate(parent.getContext(), R.layout.audio_presenter_view, null));
     }
 
     @Override
@@ -42,33 +39,23 @@ public class AudioItemPresenter extends Presenter {
 
     class PresenterViewHolder extends ViewHolder {
 
-        private ConstraintLayout itemLayout;
-        private ImageView itemImage;
-        private TextView itemTitle;
+        AudioItemView audioItem;
 
         PresenterViewHolder(View itemView) {
             super(itemView);
-            itemLayout = itemView.findViewById(R.id.item_layout);
-            itemImage = itemView.findViewById(R.id.item_image_view);
-            itemTitle = itemView.findViewById(R.id.item_title_text_view);
+            audioItem = itemView.findViewById(R.id.audio_item);
         }
 
         void bind(AudioFile audioFile) {
             if (audioFile != null) {
-                Glide.with(context).load(R.drawable.launcher_icon).centerCrop().into(itemImage);
-                addClickListener(audioFile);
-                itemTitle.setText(audioFile.getTitle());
+                audioItem.setTitle(audioFile.getTitle());
+                audioItem.setOnClickListener(view -> {
+                    eventInterface.onItemClick(audioFile);
+                    Log.d("3ss", "Clicked: " + audioFile.getTitle());
+                });
             }
         }
-
-        private void addClickListener(final AudioFile audioFile) {
-            itemLayout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    audioFile.getAudioFile().start();
-                }
-            });
-        }
-
     }
+
+
 }

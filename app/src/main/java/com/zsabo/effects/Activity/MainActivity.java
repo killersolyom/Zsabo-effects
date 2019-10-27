@@ -11,6 +11,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.zsabo.effects.R;
 import com.zsabo.effects.Utilities.FragmentNavigation;
+import com.zsabo.effects.Utilities.UserSettingsManager;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initAppBar();
+        UserSettingsManager.getInstance().initManager(this);
         FragmentNavigation.getInstance().initComponents(this);
         FragmentNavigation.getInstance().showAudioStreamFragment();
     }

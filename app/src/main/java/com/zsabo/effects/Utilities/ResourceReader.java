@@ -2,7 +2,6 @@ package com.zsabo.effects.Utilities;
 
 import android.content.Context;
 import android.media.MediaMetadataRetriever;
-import android.media.MediaPlayer;
 import android.net.Uri;
 
 import com.zsabo.effects.Models.AudioFile;
@@ -12,7 +11,7 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 public class ResourceReader {
-    private String TAG = ResourceReader.class.getCanonicalName();
+
     private static ResourceReader mInstance = null;
 
     private ResourceReader() {
@@ -32,10 +31,9 @@ public class ResourceReader {
         for (Field field : fields) {
             int resourceID = getResourceId(context, field);
             String title = getSoundTitle(context, resourceID);
-            MediaPlayer mPlayer = MediaPlayer.create(context, resourceID);
 
-            if (mPlayer != null && title != null) {
-                audioFiles.add(new AudioFile(mPlayer, title));
+            if (title != null && !title.isEmpty()) {
+                audioFiles.add(new AudioFile(resourceID, title));
             }
         }
         return audioFiles;

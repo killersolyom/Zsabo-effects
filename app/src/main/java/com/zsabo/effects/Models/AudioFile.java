@@ -1,19 +1,17 @@
 package com.zsabo.effects.Models;
 
-import android.media.MediaPlayer;
-
 public class AudioFile {
 
-    private MediaPlayer audioFile;
+    private int audioFileResourceID;
     private String title;
 
-    public AudioFile(MediaPlayer audioFile, String title) {
-        this.audioFile = audioFile;
+    public AudioFile(int audioFileId, String title) {
+        this.audioFileResourceID = audioFileId;
         this.title = title;
     }
 
-    public MediaPlayer getAudioFile() {
-        return audioFile;
+    public int getAudioResourceId() {
+        return audioFileResourceID;
     }
 
     public String getTitle() {
