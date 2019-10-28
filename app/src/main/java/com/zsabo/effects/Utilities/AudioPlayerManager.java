@@ -16,7 +16,7 @@ public class AudioPlayerManager {
     }
 
     public void playAudio(AudioFile audioFile) {
-        if (UserSettingsManager.getInstance().readFadeingButtonState()) {
+        if (UserSettingsManager.getInstance().readFadeingButtonState() && mPlayer.isPlaying()) {
             MediaPlayer mp = MediaPlayer.create(context, audioFile.getAudioResourceId());
             mp.start();
         } else {

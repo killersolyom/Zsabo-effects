@@ -1,7 +1,6 @@
 package com.zsabo.effects.Presenter;
 
 
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -47,13 +46,7 @@ public class AudioItemPresenter extends Presenter {
         }
 
         void bind(AudioFile audioFile) {
-            if (audioFile != null) {
-                audioItem.setTitle(audioFile.getTitle());
-                audioItem.setOnClickListener(view -> {
-                    eventInterface.onItemClick(audioFile);
-                    Log.d("3ss", "Clicked: " + audioFile.getTitle());
-                });
-            }
+            audioItem.setData(audioFile, (view -> eventInterface.onItemClick(audioFile)));
         }
     }
 

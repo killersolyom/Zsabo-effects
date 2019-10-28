@@ -1,7 +1,10 @@
 package com.zsabo.effects.Activity;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.view.MenuItem;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
@@ -9,38 +12,42 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.google.android.material.navigation.NavigationView;
 import com.zsabo.effects.R;
 import com.zsabo.effects.Utilities.FragmentNavigation;
 import com.zsabo.effects.Utilities.UserSettingsManager;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements
+        NavigationView.OnNavigationItemSelectedListener {
 
-    private String TAG = MainActivity.class.getCanonicalName();
-
-    private AppBarConfiguration mAppBarConfiguration;
+    private NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        initAppBar();
+        navigationView = findViewById(R.id.nav_view);
+        initNavigationBar();
+
         UserSettingsManager.getInstance().initManager(this);
         FragmentNavigation.getInstance().initComponents(this);
         FragmentNavigation.getInstance().showAudioStreamFragment();
     }
 
-    @Override
-    public boolean onSupportNavigateUp() {
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        return NavigationUI.navigateUp(navController, mAppBarConfiguration) || super.onSupportNavigateUp();
+
+    private void initNavigationBar() {
+        navigationView.setNavigationItemSelectedListener(this);
     }
 
-    private void initAppBar() {
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow,
-                R.id.nav_tools, R.id.nav_share, R.id.nav_send)
-                .setDrawerLayout(drawer)
-                .build();
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        FragmentNavigation.getInstance().handleNavigationItem(menuItem);
+        return false;
+    }
+
+    @Override
+    public void onBackPressed() {
+        FragmentNavigation.getInstance().onBackPressed();
     }
 }

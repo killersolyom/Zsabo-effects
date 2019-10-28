@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.bumptech.glide.Glide;
+import com.zsabo.effects.Models.AudioFile;
 import com.zsabo.effects.R;
 
 public class AudioItemView extends ConstraintLayout {
@@ -23,7 +24,8 @@ public class AudioItemView extends ConstraintLayout {
         Glide.with(context).load(R.drawable.launcher_icon).centerCrop().into(itemImage);
     }
 
-    public void setTitle(String title) {
-        itemTitle.setText(title);
+    public void setData(AudioFile audioFile, OnClickListener clickListener) {
+        itemTitle.setText(audioFile.getTitle());
+        this.setOnClickListener(clickListener);
     }
 }

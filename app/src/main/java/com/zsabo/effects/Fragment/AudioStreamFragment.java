@@ -1,7 +1,9 @@
 package com.zsabo.effects.Fragment;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.OrientationEventListener;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -23,6 +25,8 @@ import com.zsabo.effects.Utilities.ResourceReader;
 public class AudioStreamFragment extends Fragment implements AudioStreamItemInterface {
 
     private View view;
+    private int portraitColumnNumber = 3;
+    private int landscapeColumnNumber = 4;
     private ItemBridgeAdapter adapter;
     private AudioPlayerManager audioPlayer;
     private RecyclerView soundRecyclerView;
@@ -46,9 +50,15 @@ public class AudioStreamFragment extends Fragment implements AudioStreamItemInte
             audioPlayer = new AudioPlayerManager(getContext());
             view = inflater.inflate(R.layout.fragment_audio_stream, container, false);
             soundRecyclerView = view.findViewById(R.id.audio_recycler_view);
-            soundRecyclerView.setLayoutManager(new GridLayoutManager(this.getContext(), 3));
             initPresenters();
         }
+
+        if (this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            soundRecyclerView.setLayoutManager(new GridLayoutManager(this.getContext(), portraitColumnNumber));
+        } else {
+            soundRecyclerView.setLayoutManager(new GridLayoutManager(this.getContext(), landscapeColumnNumber));
+        }
+
         return view;
     }
 
