@@ -4,27 +4,28 @@ import android.app.Application;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.bumptech.glide.Glide;
-import com.zsabo.effects.Activity.MainActivity;
 import com.zsabo.effects.Models.AudioFile;
 import com.zsabo.effects.R;
+import com.zsabo.effects.Utilities.DataManager;
 
 public class AudioItemView extends ConstraintLayout {
 
     private TextView itemTitle;
     private ImageView itemImage;
+    private TextView listenCounter;
 
     public AudioItemView(Context context, AttributeSet attrs) {
         super(context, attrs);
         LayoutInflater.from(context).inflate(R.layout.audio_item_view, this, true);
         itemImage = findViewById(R.id.item_image_view);
         itemTitle = findViewById(R.id.item_title_text_view);
+        listenCounter = findViewById(R.id.item_listen_counter);
         try {
             Glide.with(getApplicationUsingReflection().getApplicationContext()).load(R.drawable.launcher_icon).centerCrop().into(itemImage);
         } catch (Exception ignored) {
@@ -33,11 +34,15 @@ public class AudioItemView extends ConstraintLayout {
 
     public void setData(final AudioFile audioFile) {
         itemTitle.setText(audioFile.getTitle());
-        this.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                audioFile.play();
-            }
+        listenCounter.setText(String.valueOf(DataManager.getInstance().getListenCounter(audioFile.getTitle())));
+        addClickListener(audioFile);
+    }
+
+    private void addClickListener(AudioFile audioFile) {
+        this.setOnClickListener(view -> {
+            DataManager.getInstance().increaseListenCounter(audioFile.getTitle());
+            listenCounter.setText(String.valueOf(DataManager.getInstance().getListenCounter(audioFile.getTitle())));
+            audioFile.play();
         });
     }
 
