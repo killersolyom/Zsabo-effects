@@ -21,12 +21,14 @@ public class MainActivity extends AppCompatActivity implements
         NavigationView.OnNavigationItemSelectedListener {
 
     private NavigationView navigationView;
+    private DrawerLayout drawerLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         navigationView = findViewById(R.id.nav_view);
+        drawerLayout = findViewById(R.id.drawer_layout);
         initNavigationBar();
 
         UserSettingsManager.getInstance().initManager(this);
@@ -42,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-        FragmentNavigation.getInstance().handleNavigationItem(menuItem);
+        FragmentNavigation.getInstance().handleNavigationItem(menuItem,drawerLayout);
         return false;
     }
 

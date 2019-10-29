@@ -2,6 +2,7 @@ package com.zsabo.effects.Utilities;
 
 import android.content.Context;
 import android.media.MediaMetadataRetriever;
+import android.media.MediaPlayer;
 import android.net.Uri;
 
 import com.zsabo.effects.Models.AudioFile;
@@ -33,7 +34,7 @@ public class ResourceReader {
             String title = getSoundTitle(context, resourceID);
 
             if (title != null && !title.isEmpty()) {
-                audioFiles.add(new AudioFile(resourceID, title));
+                audioFiles.add(new AudioFile(title, MediaPlayer.create(context, resourceID)));
             }
         }
         return audioFiles;

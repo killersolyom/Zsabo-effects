@@ -3,6 +3,7 @@ package com.zsabo.effects.Utilities;
 import android.util.Log;
 import android.view.MenuItem;
 
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -31,28 +32,30 @@ public class FragmentNavigation {
     }
 
     public void showAudioStreamFragment() {
-        clearBackStack();
-        Log.d("3ss","showAudioStreamFragment " + fragmentManager.getFragments().size());
-        showFragment(new AudioStreamFragment());
+        showFragment(new AudioStreamFragment(),true);
     }
 
     private void showSettingsFragment() {
-        clearBackStack();
-        showFragment(new SettingsFragment());
+        showFragment(new SettingsFragment(),true);
     }
 
-    private void showFragment(Fragment fragment) {
+    private void showFragment(Fragment fragment, boolean addToBackStack) {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container, fragment, fragment.getTag());
-        fragmentTransaction.addToBackStack(fragment.getTag());
+        fragmentTransaction.replace(R.id.fragment_container, fragment, fragment.getClass().getCanonicalName());
+        if(addToBackStack){
+            fragmentTransaction.addToBackStack(fragment.getTag());
+        }
         fragmentTransaction.commit();
     }
 
     private void clearBackStack() {
-        if(fragmentManager.getFragments().size() == 1){
-            return;
-        }
         for (int i = 1; i < fragmentManager.getBackStackEntryCount(); ++i) {
+            fragmentManager.popBackStack();
+        }
+    }
+
+    private void clearAllBackStack() {
+        for (int i = 0; i < fragmentManager.getBackStackEntryCount(); ++i) {
             fragmentManager.popBackStack();
         }
     }
@@ -63,7 +66,7 @@ public class FragmentNavigation {
     }
 
     private void exit() {
-        clearBackStack();
+        clearAllBackStack();
         System.exit(0);
     }
 
@@ -71,14 +74,18 @@ public class FragmentNavigation {
         fragmentManager.popBackStack();
     }
 
-    public void handleNavigationItem(MenuItem menuItem) {
+    public void handleNavigationItem(MenuItem menuItem, DrawerLayout drawerLayout) {
 
         switch (menuItem.getItemId()) {
             case R.id.nav_sounds:
+                clearBackStack();
                 showAudioStreamFragment();
+                drawerLayout.closeDrawers();
                 break;
-            case R.id.nav_settings: ;
+            case R.id.nav_settings:
+                clearBackStack();
                 showSettingsFragment();
+                drawerLayout.closeDrawers();
                 break;
             case R.id.nav_share:
                 break;

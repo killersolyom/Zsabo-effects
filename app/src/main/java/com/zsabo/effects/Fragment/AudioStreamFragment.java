@@ -3,7 +3,6 @@ package com.zsabo.effects.Fragment;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.OrientationEventListener;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -15,20 +14,17 @@ import androidx.leanback.widget.ItemBridgeAdapter;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.zsabo.effects.Communication.AudioStreamItemInterface;
 import com.zsabo.effects.Models.AudioFile;
 import com.zsabo.effects.Presenter.AudioItemPresenter;
 import com.zsabo.effects.R;
-import com.zsabo.effects.Utilities.AudioPlayerManager;
 import com.zsabo.effects.Utilities.ResourceReader;
 
-public class AudioStreamFragment extends Fragment implements AudioStreamItemInterface {
+public class AudioStreamFragment extends Fragment{
 
     private View view;
     private int portraitColumnNumber = 3;
     private int landscapeColumnNumber = 4;
     private ItemBridgeAdapter adapter;
-    private AudioPlayerManager audioPlayer;
     private RecyclerView soundRecyclerView;
     private ArrayObjectAdapter objectAdapter;
     private ClassPresenterSelector presenterSelector;
@@ -47,7 +43,6 @@ public class AudioStreamFragment extends Fragment implements AudioStreamItemInte
             presenterSelector = new ClassPresenterSelector();
             adapter = new ItemBridgeAdapter();
             objectAdapter = new ArrayObjectAdapter();
-            audioPlayer = new AudioPlayerManager(getContext());
             view = inflater.inflate(R.layout.fragment_audio_stream, container, false);
             soundRecyclerView = view.findViewById(R.id.audio_recycler_view);
             initPresenters();
@@ -78,13 +73,9 @@ public class AudioStreamFragment extends Fragment implements AudioStreamItemInte
     }
 
     private ClassPresenterSelector setUpPresenter() {
-        AudioItemPresenter audioItemPresenter = new AudioItemPresenter(this);
+        AudioItemPresenter audioItemPresenter = new AudioItemPresenter();
         presenterSelector.addClassPresenter(AudioFile.class, audioItemPresenter);
         return presenterSelector;
     }
 
-    @Override
-    public void onItemClick(AudioFile audioFile) {
-        audioPlayer.playAudio(audioFile);
-    }
 }
