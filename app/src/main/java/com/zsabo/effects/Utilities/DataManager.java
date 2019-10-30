@@ -21,11 +21,10 @@ public class DataManager {
     @SuppressLint("CommitPrefEdits")
     public void initManager(Context context) {
         preference = context.getSharedPreferences(context.getApplicationContext().getPackageName(), 0);
-        editor = preference.edit();
     }
 
     private void writeLongData(long number, String key) {
-        editor.putLong(key, number).commit();
+        preference.edit().putLong(key, number).apply();
     }
 
     private long readLongData(String key) {
@@ -38,5 +37,9 @@ public class DataManager {
 
     public long getListenCounter(String title) {
         return readLongData(title);
+    }
+
+    public void resetCounter(String title) {
+        preference.edit().remove(title).apply();
     }
 }

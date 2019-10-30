@@ -39,15 +39,21 @@ public class AudioItemView extends ConstraintLayout {
     }
 
     private void addClickListener(AudioFile audioFile) {
-        this.setOnClickListener(view -> {
+        this.setOnClickListener(view -> onItemSelected(audioFile));
+    }
+
+    private void onItemSelected(AudioFile audioFile) {
+        if (audioFile.play()) {
             DataManager.getInstance().increaseListenCounter(audioFile.getTitle());
             listenCounter.setText(String.valueOf(DataManager.getInstance().getListenCounter(audioFile.getTitle())));
-            audioFile.play();
-        });
+        }
     }
 
     private Application getApplicationUsingReflection() throws Exception {
         return (Application) Class.forName("android.app.AppGlobals").getMethod("getInitialApplication").invoke(null, (Object[]) null);
     }
 
+    public void setTitle(String title) {
+        itemTitle.setText(title);
+    }
 }

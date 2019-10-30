@@ -79,7 +79,6 @@ public class FragmentNavigation {
         switch (menuItem.getItemId()) {
             case R.id.nav_sounds:
                 clearBackStack();
-                showAudioStreamFragment();
                 drawerLayout.closeDrawers();
                 break;
             case R.id.nav_settings:

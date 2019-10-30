@@ -16,12 +16,11 @@ public class AudioFile {
         return title;
     }
 
-    public void play() {
-        if (mPlayer != null) {
-            if (mPlayer.isPlaying()) {
-                mPlayer.stop();
-            }
+    public boolean play() {
+        if (mPlayer != null && !mPlayer.isPlaying()) {
             mPlayer.start();
+            return true;
         }
+        return false;
     }
 }
