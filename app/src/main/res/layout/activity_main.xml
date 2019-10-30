@@ -9,6 +9,11 @@
     android:background="@android:color/transparent"
     tools:openDrawer="start">
 
+    <ImageView
+        android:id="@+id/background_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
     <FrameLayout
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
@@ -16,6 +21,17 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <com.zsabo.effects.CustomView.NotificationBar
+        android:id="@+id/notification_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="75dp"
+        android:layout_marginTop="175dp"
+        android:paddingStart="-2dp"
+        android:paddingEnd="0dp"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"

@@ -14,8 +14,6 @@ import com.zsabo.effects.R;
 import com.zsabo.effects.Utilities.DataManager;
 import com.zsabo.effects.Utilities.ResourceReader;
 
-import java.util.Objects;
-
 public class SettingsFragment extends Fragment {
 
     private Button clearCounterButton;
@@ -49,11 +47,8 @@ public class SettingsFragment extends Fragment {
     }
 
     private void clearAllListenCounter() {
-        ResourceReader
-                .getInstance()
-                .getAudioFiles(getContext())
-                .stream()
-                .filter(Objects::nonNull)
-                .forEach(s -> DataManager.getInstance().resetCounter(s.getTitle()));
+        for (String it : ResourceReader.getInstance().getAudioFileNames(getContext())) {
+            DataManager.getInstance().resetCounter(it);
+        }
     }
 }

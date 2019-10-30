@@ -34,7 +34,7 @@ public class AudioItemView extends ConstraintLayout {
 
     public void setData(final AudioFile audioFile) {
         itemTitle.setText(audioFile.getTitle());
-        listenCounter.setText(String.valueOf(DataManager.getInstance().getListenCounter(audioFile.getTitle())));
+        setCounterNumber(audioFile);
         addClickListener(audioFile);
     }
 
@@ -45,7 +45,17 @@ public class AudioItemView extends ConstraintLayout {
     private void onItemSelected(AudioFile audioFile) {
         if (audioFile.play()) {
             DataManager.getInstance().increaseListenCounter(audioFile.getTitle());
-            listenCounter.setText(String.valueOf(DataManager.getInstance().getListenCounter(audioFile.getTitle())));
+            setCounterNumber(audioFile);
+        }
+    }
+
+    private void setCounterNumber(AudioFile audioFile) {
+        long number = DataManager.getInstance().getListenCounter(audioFile.getTitle());
+        if (number > 0L) {
+            listenCounter.setText(String.valueOf(number));
+            listenCounter.setVisibility(VISIBLE);
+        } else {
+            listenCounter.setVisibility(GONE);
         }
     }
 
@@ -55,5 +65,9 @@ public class AudioItemView extends ConstraintLayout {
 
     public void setTitle(String title) {
         itemTitle.setText(title);
+    }
+
+    public void onClick() {
+        this.performClick();
     }
 }

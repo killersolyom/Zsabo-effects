@@ -78,7 +78,8 @@ public class AudioStreamFragment extends Fragment {
         for (AudioFile it : audioFiles) {
             objectAdapter.add(it);
         }
-        objectAdapter.add(new ClickListenerObject(view -> playRandomItem()));
+        View.OnClickListener onClickListener = view -> playRandomItem();
+        objectAdapter.add(new ClickListenerObject(onClickListener));
     }
 
     private ClassPresenterSelector setUpPresenter() {

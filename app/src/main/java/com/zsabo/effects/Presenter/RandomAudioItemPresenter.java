@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import androidx.leanback.widget.Presenter;
 
 import com.zsabo.effects.CustomView.AudioItemView;
-import com.zsabo.effects.Models.AudioFile;
 import com.zsabo.effects.Models.ClickListenerObject;
 import com.zsabo.effects.R;
 

@@ -1,6 +1,5 @@
 package com.zsabo.effects.Utilities;
 
-import android.util.Log;
 import android.view.MenuItem;
 
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -9,6 +8,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.zsabo.effects.Activity.MainActivity;
+import com.zsabo.effects.Communication.MainActivityInterface;
 import com.zsabo.effects.Fragment.AudioStreamFragment;
 import com.zsabo.effects.Fragment.SettingsFragment;
 import com.zsabo.effects.R;
@@ -16,6 +16,7 @@ import com.zsabo.effects.R;
 public class FragmentNavigation {
 
     private FragmentManager fragmentManager;
+    private MainActivityInterface mainInterface;
 
 
     private static final FragmentNavigation ourInstance = new FragmentNavigation();
@@ -27,22 +28,23 @@ public class FragmentNavigation {
     private FragmentNavigation() {
     }
 
-    public void initComponents(MainActivity activity) {
+    public void initComponents(MainActivity activity, MainActivityInterface mainInterface) {
         fragmentManager = activity.getSupportFragmentManager();
+        this.mainInterface = mainInterface;
     }
 
     public void showAudioStreamFragment() {
-        showFragment(new AudioStreamFragment(),true);
+        showFragment(new AudioStreamFragment(), true);
     }
 
     private void showSettingsFragment() {
-        showFragment(new SettingsFragment(),true);
+        showFragment(new SettingsFragment(), true);
     }
 
     private void showFragment(Fragment fragment, boolean addToBackStack) {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, fragment, fragment.getClass().getCanonicalName());
-        if(addToBackStack){
+        if (addToBackStack) {
             fragmentTransaction.addToBackStack(fragment.getTag());
         }
         fragmentTransaction.commit();
@@ -74,8 +76,11 @@ public class FragmentNavigation {
         fragmentManager.popBackStack();
     }
 
-    public void handleNavigationItem(MenuItem menuItem, DrawerLayout drawerLayout) {
+    public void showNotificationBar(String title, String message, Object image, boolean isError) {
+        mainInterface.showNotificationBar(title, message, image, isError);
+    }
 
+    public void handleNavigationItem(MenuItem menuItem, DrawerLayout drawerLayout) {
         switch (menuItem.getItemId()) {
             case R.id.nav_sounds:
                 clearBackStack();

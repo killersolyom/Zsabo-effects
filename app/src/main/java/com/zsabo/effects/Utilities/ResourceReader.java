@@ -34,10 +34,20 @@ public class ResourceReader {
             String title = getSoundTitle(context, resourceID);
 
             if (title != null && !title.isEmpty()) {
-                audioFiles.add(new AudioFile(title, MediaPlayer.create(context, resourceID)));
+                audioFiles.add(new AudioFile(title, MediaPlayer.create(context, resourceID),context));
             }
         }
         return audioFiles;
+    }
+
+    public ArrayList<String> getAudioFileNames(Context context) {
+        Field[] fields = R.raw.class.getFields();
+        ArrayList<String> audioFileNames = new ArrayList<>();
+
+        for (Field field : fields) {
+            audioFileNames.add(getSoundTitle(context, getResourceId(context, field)));
+        }
+        return audioFileNames;
     }
 
     private String getSoundTitle(Context context, int resourceID) {
