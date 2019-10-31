@@ -3,8 +3,10 @@ package com.zsabo.effects.CustomView;
 import android.app.Application;
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -19,6 +21,8 @@ public class AudioItemView extends ConstraintLayout {
     private TextView itemTitle;
     private ImageView itemImage;
     private TextView listenCounter;
+    private CurvedTextView curvedTextView;
+    private RelativeLayout itemTitleLayout;
 
     public AudioItemView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -26,14 +30,19 @@ public class AudioItemView extends ConstraintLayout {
         itemImage = findViewById(R.id.item_image_view);
         itemTitle = findViewById(R.id.item_title_text_view);
         listenCounter = findViewById(R.id.item_listen_counter);
+        itemTitleLayout = findViewById(R.id.item_title_layout);
         try {
-            Glide.with(getApplicationUsingReflection().getApplicationContext()).load(R.drawable.launcher_icon).centerCrop().into(itemImage);
+            Glide.with(getApplicationUsingReflection().getApplicationContext()).load(R.drawable.play_button_icon).fitCenter().into(itemImage);
         } catch (Exception ignored) {
         }
     }
 
     public void setData(final AudioFile audioFile) {
         itemTitle.setText(audioFile.getTitle());
+        curvedTextView = new CurvedTextView(getContext(), audioFile.getTitle());
+        itemTitleLayout.addView(curvedTextView);
+        Log.d("3ss","w: " + itemTitleLayout.getWidth()+" h: " + itemTitleLayout.getHeight());
+
         setCounterNumber(audioFile);
         addClickListener(audioFile);
     }
@@ -59,15 +68,16 @@ public class AudioItemView extends ConstraintLayout {
         }
     }
 
-    private Application getApplicationUsingReflection() throws Exception {
-        return (Application) Class.forName("android.app.AppGlobals").getMethod("getInitialApplication").invoke(null, (Object[]) null);
-    }
-
     public void setTitle(String title) {
         itemTitle.setText(title);
     }
 
-    public void onClick() {
-        this.performClick();
+    public void hideClickCounter() {
+        listenCounter.setVisibility(GONE);
     }
+
+    private Application getApplicationUsingReflection() throws Exception {
+        return (Application) Class.forName("android.app.AppGlobals").getMethod("getInitialApplication").invoke(null, (Object[]) null);
+    }
+
 }

@@ -44,6 +44,7 @@ public class AudioItemPresenter extends Presenter {
         void bind(AudioFile audioFile) {
             audioItem.setData(audioFile);
         }
+
     }
 
 

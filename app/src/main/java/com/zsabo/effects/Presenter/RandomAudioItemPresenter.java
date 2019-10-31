@@ -43,6 +43,7 @@ public class RandomAudioItemPresenter extends Presenter {
 
         void bind(ClickListenerObject clickListenerObject) {
             audioItem.setOnClickListener(clickListenerObject.getClickListener());
+            audioItem.hideClickCounter();
             audioItem.setTitle("Random");
         }
     }

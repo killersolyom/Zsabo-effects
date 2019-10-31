@@ -34,20 +34,18 @@ public class FragmentNavigation {
     }
 
     public void showAudioStreamFragment() {
-        showFragment(new AudioStreamFragment(), true);
+        showFragment(new AudioStreamFragment());
     }
 
     private void showSettingsFragment() {
-        showFragment(new SettingsFragment(), true);
+        showFragment(new SettingsFragment());
     }
 
-    private void showFragment(Fragment fragment, boolean addToBackStack) {
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container, fragment, fragment.getClass().getCanonicalName());
-        if (addToBackStack) {
-            fragmentTransaction.addToBackStack(fragment.getTag());
-        }
-        fragmentTransaction.commit();
+    private void showFragment(Fragment fragment) {
+        (fragmentManager.beginTransaction())
+                .replace(R.id.fragment_container, fragment, fragment.getClass().getCanonicalName())
+                .addToBackStack(fragment.getTag())
+                .commit();
     }
 
     private void clearBackStack() {
