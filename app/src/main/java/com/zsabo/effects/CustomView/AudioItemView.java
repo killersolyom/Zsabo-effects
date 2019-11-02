@@ -22,7 +22,7 @@ public class AudioItemView extends ConstraintLayout {
         super(context, attrs);
         LayoutInflater.from(context).inflate(R.layout.audio_item_view, this, true);
         ImageView itemImage = findViewById(R.id.item_image_view);
-        listenCounter = findViewById(R.id.item_listen_counter);
+        listenCounter = findViewById(R.id.item_listening_counter);
         audioTitleView = findViewById(R.id.item_title_layout);
         GlideUtils.getInstance().loadImage(R.drawable.play_button_icon, itemImage);
     }
@@ -52,10 +52,6 @@ public class AudioItemView extends ConstraintLayout {
         } else {
             listenCounter.setVisibility(GONE);
         }
-    }
-
-    public void hideClickCounter() {
-        listenCounter.setVisibility(GONE);
     }
 
 }

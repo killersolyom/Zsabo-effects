@@ -11,5 +11,6 @@
     <dimen name="audio_item_layout_height">115dp</dimen>
     <dimen name="audio_item_image_size">90dp</dimen>
     <dimen name="audio_item_listen_counter_size">30dp</dimen>
+    <dimen name="random_item_overlay_size">94dp</dimen>
 
 </resources>

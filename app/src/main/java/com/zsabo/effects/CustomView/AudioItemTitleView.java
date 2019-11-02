@@ -13,7 +13,6 @@ import android.view.View;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-import com.bumptech.glide.Glide;
 import com.zsabo.effects.R;
 
 public class AudioItemTitleView extends ConstraintLayout {
@@ -37,21 +36,32 @@ public class AudioItemTitleView extends ConstraintLayout {
 
         public CurvedTextView(Context context, String text) {
             super(context);
-            Log.d("3ss","" + getHeight() + " " + getWidth());
             textContent = text;
+        }
+
+        private boolean setupSettings(int width, int height) {
+            if (width == 0 || height == 0) {
+                return false;
+            }
             myArc = new Path();
-            RectF oval = new RectF(45, 45, 255, 255);
+            int widthOffset = (int) ((width / 100) * 14.5);
+            int heightOffset = (int) ((height / 100) * 14.5);
+            int newWidth = width - widthOffset;
+            int newHeight = height - heightOffset;
+            RectF oval = new RectF(widthOffset, heightOffset, newWidth, newHeight);
             myArc.addArc(oval, 220, 345);
             mPaintText = new Paint(Paint.ANTI_ALIAS_FLAG);
             mPaintText.setStyle(Paint.Style.FILL_AND_STROKE);
             mPaintText.setColor(Color.WHITE);
             mPaintText.setTextSize(35f);
+            return true;
         }
-
 
         @Override
         protected void onDraw(Canvas canvas) {
-            canvas.drawTextOnPath(textContent + textContent, myArc, 0, 0, mPaintText);
+            if (setupSettings(this.getWidth(), this.getHeight())) {
+                canvas.drawTextOnPath(textContent + textContent, myArc, 0, 0, mPaintText);
+            }
         }
     }
 
