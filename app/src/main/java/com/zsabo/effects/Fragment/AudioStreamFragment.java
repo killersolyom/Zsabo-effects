@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.zsabo.effects.Models.AudioFile;
-import com.zsabo.effects.Models.ClickListenerObject;
+import com.zsabo.effects.Models.RunnableObject;
 import com.zsabo.effects.Presenter.AudioItemPresenter;
 import com.zsabo.effects.Presenter.RandomAudioItemPresenter;
 import com.zsabo.effects.R;
@@ -77,15 +77,16 @@ public class AudioStreamFragment extends Fragment {
         for (AudioFile it : audioFiles) {
             objectAdapter.add(it);
         }
-        View.OnClickListener onClickListener = view -> playRandomItem();
-        objectAdapter.add(new ClickListenerObject(onClickListener));
+        if (!audioFiles.isEmpty()) {
+            objectAdapter.add(new RunnableObject(this::playRandomItem));
+        }
     }
 
     private ClassPresenterSelector setUpPresenter() {
         AudioItemPresenter audioItemPresenter = new AudioItemPresenter();
         RandomAudioItemPresenter randomAudioItemPresenter = new RandomAudioItemPresenter();
         presenterSelector.addClassPresenter(AudioFile.class, audioItemPresenter);
-        presenterSelector.addClassPresenter(ClickListenerObject.class, randomAudioItemPresenter);
+        presenterSelector.addClassPresenter(RunnableObject.class, randomAudioItemPresenter);
         return presenterSelector;
     }
 

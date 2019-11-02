@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tool="http://schemas.android.com/tools"
-    tool:parentTag="androidx.constraintlayout.widget.ConstraintLayout"
     android:id="@+id/audio_item_layout"
-    android:layout_marginBottom="6dp"
-    android:layout_marginTop="6dp"
-    android:layout_width="@dimen/audio_item_size_width"
-    android:layout_height="@dimen/audio_item_size_height">
+    android:layout_width="@dimen/audio_item_layout_width"
+    android:layout_height="@dimen/audio_item_layout_height"
+    tool:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
 
     <ImageView
         android:id="@+id/item_background"
@@ -20,43 +18,35 @@
 
     <ImageView
         android:id="@+id/item_image_view"
-        android:layout_width="@dimen/audio_item_size_width"
-        android:layout_height="@dimen/audio_item_size_width"
-        android:padding="10dp"
+        android:layout_width="@dimen/audio_item_image_size"
+        android:layout_height="@dimen/audio_item_image_size"
+        android:padding="15dp"
+        android:stateListAnimator="@drawable/audio_item_image_animator"
         app:layout_constraintBottom_toBottomOf="@id/item_background"
         app:layout_constraintEnd_toEndOf="@id/item_background"
         app:layout_constraintStart_toStartOf="@id/item_background"
         app:layout_constraintTop_toTopOf="@id/item_background" />
 
-    <TextView
-        android:id="@+id/item_title_text_view"
+    <com.zsabo.effects.CustomView.AudioItemTitleView
+        android:id="@+id/item_title_layout"
         android:layout_width="@dimen/audio_item_size_width"
-        android:layout_height="wrap_content"
-        android:maxLines="2"
-        android:visibility="gone"
-        android:textColor="@color/colorWhite"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="@id/item_image_view"
-        app:layout_constraintEnd_toEndOf="@id/item_image_view" />
+        android:layout_height="@dimen/audio_item_size_width"
+        app:layout_constraintBottom_toBottomOf="@id/item_background"
+        app:layout_constraintEnd_toEndOf="@id/item_background"
+        app:layout_constraintStart_toStartOf="@id/item_background"
+        app:layout_constraintTop_toTopOf="@id/item_background"/>
 
     <TextView
         android:id="@+id/item_listen_counter"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="@dimen/audio_item_listen_counter_size"
+        android:layout_height="@dimen/audio_item_listen_counter_size"
         android:textSize="12sp"
         android:gravity="center"
+        android:layout_marginTop="2dp"
         android:textColor="@color/colorWhite"
         android:background="@drawable/listen_counter_item_background_selector"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <RelativeLayout
-        android:id="@+id/item_title_layout"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
-        app:layout_constraintBottom_toBottomOf="@id/item_background"
-        app:layout_constraintEnd_toEndOf="@id/item_background"
-        app:layout_constraintStart_toStartOf="@id/item_background"
-        app:layout_constraintTop_toTopOf="@id/item_background" />
 
-</merge>
+</androidx.constraintlayout.widget.ConstraintLayout>

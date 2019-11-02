@@ -15,6 +15,7 @@ import com.zsabo.effects.CustomView.NotificationBar;
 import com.zsabo.effects.R;
 import com.zsabo.effects.Utilities.DataManager;
 import com.zsabo.effects.Utilities.FragmentNavigation;
+import com.zsabo.effects.Utilities.GlideUtils;
 
 public class MainActivity extends AppCompatActivity implements
         NavigationView.OnNavigationItemSelectedListener, MainActivityInterface {
@@ -34,6 +35,7 @@ public class MainActivity extends AppCompatActivity implements
         drawerLayout = findViewById(R.id.drawer_layout);
         Glide.with(getApplicationContext()).load(R.drawable.bcg1).centerCrop().into(background);
         initNavigationBar();
+        GlideUtils.getInstance().initialize(getApplicationContext());
         DataManager.getInstance().initManager(this);
         FragmentNavigation.getInstance().initComponents(this, this);
         FragmentNavigation.getInstance().showAudioStreamFragment();

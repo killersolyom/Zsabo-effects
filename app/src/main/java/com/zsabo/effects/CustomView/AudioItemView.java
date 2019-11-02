@@ -1,48 +1,34 @@
 package com.zsabo.effects.CustomView;
 
-import android.app.Application;
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-import com.bumptech.glide.Glide;
 import com.zsabo.effects.Models.AudioFile;
 import com.zsabo.effects.R;
 import com.zsabo.effects.Utilities.DataManager;
+import com.zsabo.effects.Utilities.GlideUtils;
 
 public class AudioItemView extends ConstraintLayout {
 
-    private TextView itemTitle;
-    private ImageView itemImage;
     private TextView listenCounter;
-    private CurvedTextView curvedTextView;
-    private RelativeLayout itemTitleLayout;
+    private AudioItemTitleView audioTitleView;
 
     public AudioItemView(Context context, AttributeSet attrs) {
         super(context, attrs);
         LayoutInflater.from(context).inflate(R.layout.audio_item_view, this, true);
-        itemImage = findViewById(R.id.item_image_view);
-        itemTitle = findViewById(R.id.item_title_text_view);
+        ImageView itemImage = findViewById(R.id.item_image_view);
         listenCounter = findViewById(R.id.item_listen_counter);
-        itemTitleLayout = findViewById(R.id.item_title_layout);
-        try {
-            Glide.with(getApplicationUsingReflection().getApplicationContext()).load(R.drawable.play_button_icon).fitCenter().into(itemImage);
-        } catch (Exception ignored) {
-        }
+        audioTitleView = findViewById(R.id.item_title_layout);
+        GlideUtils.getInstance().loadImage(R.drawable.play_button_icon, itemImage);
     }
 
     public void setData(final AudioFile audioFile) {
-        itemTitle.setText(audioFile.getTitle());
-        curvedTextView = new CurvedTextView(getContext(), audioFile.getTitle());
-        itemTitleLayout.addView(curvedTextView);
-        Log.d("3ss","w: " + itemTitleLayout.getWidth()+" h: " + itemTitleLayout.getHeight());
-
+        audioTitleView.setTitle(audioFile.getTitle());
         setCounterNumber(audioFile);
         addClickListener(audioFile);
     }
@@ -68,16 +54,8 @@ public class AudioItemView extends ConstraintLayout {
         }
     }
 
-    public void setTitle(String title) {
-        itemTitle.setText(title);
-    }
-
     public void hideClickCounter() {
         listenCounter.setVisibility(GONE);
-    }
-
-    private Application getApplicationUsingReflection() throws Exception {
-        return (Application) Class.forName("android.app.AppGlobals").getMethod("getInitialApplication").invoke(null, (Object[]) null);
     }
 
 }

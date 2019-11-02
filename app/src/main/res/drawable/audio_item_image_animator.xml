@@ -3,15 +3,15 @@
     <item android:state_pressed="true"  >
         <set>
             <objectAnimator
-                android:duration="20"
+                android:duration="30"
                 android:propertyName="scaleX"
-                android:valueTo="1.25"
+                android:valueTo="1.45"
                 android:valueType="floatType" />
 
             <objectAnimator
-                android:duration="20"
+                android:duration="30"
                 android:propertyName="scaleY"
-                android:valueTo="1.25"
+                android:valueTo="1.45"
                 android:valueType="floatType" />
         </set>
     </item>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tool="http://schemas.android.com/tools"
+    tool:parentTag="androidx.constraintlayout.widget.ConstraintLayout"
+    android:id="@+id/audio_item_layout"
+    android:layout_width="@dimen/audio_item_layout_width"
+    android:layout_height="@dimen/audio_item_layout_height">
+
+    <ImageView
+        android:id="@+id/item_background"
+        android:layout_width="@dimen/audio_item_size_width"
+        android:layout_height="@dimen/audio_item_size_width"
+        android:background="@drawable/audio_item_background_selector"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/item_image_view"
+        android:layout_width="@dimen/audio_item_size_width"
+        android:layout_height="@dimen/audio_item_size_width"
+        app:layout_constraintBottom_toBottomOf="@id/item_background"
+        app:layout_constraintEnd_toEndOf="@id/item_background"
+        app:layout_constraintStart_toStartOf="@id/item_background"
+        app:layout_constraintTop_toTopOf="@id/item_background" />
+
+</merge>

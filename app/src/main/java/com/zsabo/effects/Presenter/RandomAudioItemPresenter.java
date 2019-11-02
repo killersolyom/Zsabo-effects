@@ -6,8 +6,8 @@ import android.view.ViewGroup;
 
 import androidx.leanback.widget.Presenter;
 
-import com.zsabo.effects.CustomView.AudioItemView;
-import com.zsabo.effects.Models.ClickListenerObject;
+import com.zsabo.effects.CustomView.RandomAudioItemView;
+import com.zsabo.effects.Models.RunnableObject;
 import com.zsabo.effects.R;
 
 
@@ -18,13 +18,13 @@ public class RandomAudioItemPresenter extends Presenter {
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent) {
-        return new PresenterViewHolder(View.inflate(parent.getContext(), R.layout.audio_presenter_view, null));
+        return new PresenterViewHolder(View.inflate(parent.getContext(), R.layout.random_audio_presenter_view, null));
     }
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, Object item) {
         PresenterViewHolder holder = (PresenterViewHolder) viewHolder;
-        holder.bind((ClickListenerObject) item);
+        holder.bind(((RunnableObject) item).getRunnable());
     }
 
     @Override
@@ -34,17 +34,15 @@ public class RandomAudioItemPresenter extends Presenter {
 
     class PresenterViewHolder extends ViewHolder {
 
-        AudioItemView audioItem;
+        RandomAudioItemView randomAudioItem;
 
         PresenterViewHolder(View itemView) {
             super(itemView);
-            audioItem = itemView.findViewById(R.id.audio_item);
+            randomAudioItem = itemView.findViewById(R.id.random_audio_item);
         }
 
-        void bind(ClickListenerObject clickListenerObject) {
-            audioItem.setOnClickListener(clickListenerObject.getClickListener());
-            audioItem.hideClickCounter();
-            audioItem.setTitle("Random");
+        void bind(Runnable runnable) {
+            randomAudioItem.setRunnable(runnable);
         }
     }
 
