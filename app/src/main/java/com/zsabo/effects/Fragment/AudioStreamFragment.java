@@ -91,6 +91,7 @@ public class AudioStreamFragment extends Fragment {
     }
 
     private void playRandomItem() {
+        //TODO this.callOnClick();
         int index = random.nextInt(audioFiles.size());
         if (audioFiles.get(index).play()) {
             DataManager.getInstance().increaseListenCounter(audioFiles.get(index).getTitle());

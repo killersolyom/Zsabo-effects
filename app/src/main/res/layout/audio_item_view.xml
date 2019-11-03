@@ -42,7 +42,7 @@
         tool:ignore="ContentDescription" />
 
     <TextView
-        android:id="@+id/item_listening_counter"
+        android:id="@+id/item_listen_counter"
         android:layout_width="@dimen/audio_item_listen_counter_size"
         android:layout_height="@dimen/audio_item_listen_counter_size"
         android:layout_marginTop="2dp"
