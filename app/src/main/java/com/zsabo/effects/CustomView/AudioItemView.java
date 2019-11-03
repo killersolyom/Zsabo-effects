@@ -3,6 +3,8 @@ package com.zsabo.effects.CustomView;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,22 +17,37 @@ import com.zsabo.effects.Utilities.GlideUtils;
 
 public class AudioItemView extends ConstraintLayout {
 
+    private ImageView itemImage;
     private TextView listenCounter;
+    private Animation clickAnimator;
     private AudioItemTitleView audioTitleView;
+    private Animation.AnimationListener clickAnimatorListener;
 
     public AudioItemView(Context context, AttributeSet attrs) {
         super(context, attrs);
         LayoutInflater.from(context).inflate(R.layout.audio_item_view, this, true);
-        ImageView itemImage = findViewById(R.id.item_image_view);
+        clickAnimator = AnimationUtils.loadAnimation(getContext(), R.anim.click_animator);
+        initClickAnimatorListener(this);
+        clickAnimator.setAnimationListener(clickAnimatorListener);
+        itemImage = findViewById(R.id.item_image_view);
         listenCounter = findViewById(R.id.item_listen_counter);
         audioTitleView = findViewById(R.id.item_title_layout);
-        GlideUtils.getInstance().loadImage(R.drawable.play_button_icon, itemImage);
     }
 
-    public void setData(final AudioFile audioFile) {
+    public void onBind(final AudioFile audioFile) {
+
+        GlideUtils.getInstance().loadImage(R.drawable.play_button_icon, itemImage);
         audioTitleView.setTitle(audioFile.getTitle());
         setCounterNumber(audioFile);
         addClickListener(audioFile);
+    }
+
+    public void onUnBind() {
+        if (itemImage.getDrawable() == getResources().getDrawable(R.drawable.play_button_icon)) {
+            GlideUtils.getInstance().clearImage(itemImage);
+            audioTitleView.removeTitle();
+            this.setOnClickListener(null);
+        }
     }
 
     private void addClickListener(AudioFile audioFile) {
@@ -56,5 +73,28 @@ public class AudioItemView extends ConstraintLayout {
 
     public String getTitle() {
         return audioTitleView.getText();
+    }
+
+    private void initClickAnimatorListener(AudioItemView audioItemView) {
+        clickAnimatorListener = new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                audioItemView.callOnClick();
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        };
+    }
+
+    public void OnClick() {
+        this.startAnimation(clickAnimator);
     }
 }

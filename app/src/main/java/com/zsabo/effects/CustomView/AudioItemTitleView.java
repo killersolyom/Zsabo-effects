@@ -17,6 +17,8 @@ import com.zsabo.effects.R;
 public class AudioItemTitleView extends ConstraintLayout {
 
     private String textContent;
+    private int maxLength = 37;
+    private CurvedTextView curvedTextView;
 
     public AudioItemTitleView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -25,11 +27,16 @@ public class AudioItemTitleView extends ConstraintLayout {
     }
 
     public void setTitle(String title) {
-        this.addView(new CurvedTextView(getContext(), title));
+        curvedTextView = new CurvedTextView(getContext(), title);
+        this.addView(curvedTextView);
     }
 
     public String getText() {
         return textContent;
+    }
+
+    public void removeTitle() {
+        curvedTextView.postInvalidate();
     }
 
     private class CurvedTextView extends View {
@@ -38,7 +45,14 @@ public class AudioItemTitleView extends ConstraintLayout {
 
         public CurvedTextView(Context context, String text) {
             super(context);
-            textContent = text;
+            textContent = cropText(text);
+        }
+
+        private String cropText(String text) {
+            if (text.length() >= maxLength) {
+                return text.substring(0, maxLength) + "...";
+            }
+            return text;
         }
 
         private boolean setupSettings(int width, int height) {
@@ -62,7 +76,7 @@ public class AudioItemTitleView extends ConstraintLayout {
         @Override
         protected void onDraw(Canvas canvas) {
             if (setupSettings(this.getWidth(), this.getHeight())) {
-                canvas.drawTextOnPath(textContent + textContent, myArc, 0, 0, mPaintText);
+                canvas.drawTextOnPath(textContent, myArc, 0, 0, mPaintText);
             }
         }
     }

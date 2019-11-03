@@ -28,4 +28,8 @@ public class GlideUtils {
         Glide.with(context).load(id).fitCenter().into(imageView);
     }
 
+    public void clearImage(ImageView imageView) {
+        Glide.with(context).clear(imageView);
+    }
+
 }

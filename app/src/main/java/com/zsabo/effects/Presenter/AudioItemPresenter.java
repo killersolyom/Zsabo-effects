@@ -29,6 +29,7 @@ public class AudioItemPresenter extends Presenter {
     public void onBindViewHolder(ViewHolder viewHolder, Object item) {
         PresenterViewHolder holder = (PresenterViewHolder) viewHolder;
         holder.bind((AudioFile) item);
+        holder.audioItem.onUnBind();
     }
 
     @Override
@@ -47,7 +48,7 @@ public class AudioItemPresenter extends Presenter {
         }
 
         void bind(AudioFile audioFile) {
-            audioItem.setData(audioFile);
+            audioItem.onBind(audioFile);
             streamInterface.registration(audioItem);
         }
 

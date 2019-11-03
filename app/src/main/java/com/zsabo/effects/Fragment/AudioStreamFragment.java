@@ -16,14 +16,12 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.zsabo.effects.Communication.AudioStreamInterface;
-import com.zsabo.effects.CustomView.AudioItemTitleView;
 import com.zsabo.effects.CustomView.AudioItemView;
 import com.zsabo.effects.Models.AudioFile;
 import com.zsabo.effects.Models.RunnableObject;
 import com.zsabo.effects.Presenter.AudioItemPresenter;
 import com.zsabo.effects.Presenter.RandomAudioItemPresenter;
 import com.zsabo.effects.R;
-import com.zsabo.effects.Utilities.DataManager;
 import com.zsabo.effects.Utilities.ResourceReader;
 
 import java.util.ArrayList;
@@ -96,7 +94,7 @@ public class AudioStreamFragment extends Fragment implements AudioStreamInterfac
     }
 
     private void playRandomItem() {
-        audioItemViews.get(random.nextInt(audioItemViews.size())).callOnClick();
+        audioItemViews.get(random.nextInt(audioItemViews.size())).OnClick();
     }
 
     private void handleRotation() {
@@ -115,13 +113,13 @@ public class AudioStreamFragment extends Fragment implements AudioStreamInterfac
 
     @Override
     public void registration(AudioItemView audioItem) {
-        Log.d(TAG, "Register item: " + audioItem.getTitle());
-        audioItemViews.add(audioItem);
+        boolean result = audioItemViews.add(audioItem);
+        Log.d(TAG, "Register item: " + audioItem.getTitle() + " Success " + result);
     }
 
     @Override
     public void unRegistration(AudioItemView audioItem) {
-        Log.d(TAG, "UnRegister item: " + audioItem.getTitle());
-        audioItemViews.remove(audioItem);
+        boolean result = audioItemViews.remove(audioItem);
+        Log.d(TAG, "UnRegister item: " + audioItem.getTitle() + " Success " + result);
     }
 }
