@@ -7,7 +7,6 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.RectF;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 
@@ -17,6 +16,7 @@ import com.zsabo.effects.R;
 
 public class AudioItemTitleView extends ConstraintLayout {
 
+    private String textContent;
 
     public AudioItemTitleView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -28,11 +28,13 @@ public class AudioItemTitleView extends ConstraintLayout {
         this.addView(new CurvedTextView(getContext(), title));
     }
 
+    public String getText() {
+        return textContent;
+    }
+
     private class CurvedTextView extends View {
         private Path myArc;
         private Paint mPaintText;
-        private String textContent;
-
 
         public CurvedTextView(Context context, String text) {
             super(context);

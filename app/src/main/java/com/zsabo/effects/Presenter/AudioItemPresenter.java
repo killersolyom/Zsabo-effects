@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 
 import androidx.leanback.widget.Presenter;
 
+import com.zsabo.effects.Communication.AudioStreamInterface;
 import com.zsabo.effects.CustomView.AudioItemView;
 import com.zsabo.effects.Models.AudioFile;
 import com.zsabo.effects.R;
@@ -13,7 +14,10 @@ import com.zsabo.effects.R;
 
 public class AudioItemPresenter extends Presenter {
 
-    public AudioItemPresenter() {
+    private AudioStreamInterface streamInterface;
+
+    public AudioItemPresenter(AudioStreamInterface audioStreamInterface) {
+        streamInterface = audioStreamInterface;
     }
 
     @Override
@@ -29,7 +33,8 @@ public class AudioItemPresenter extends Presenter {
 
     @Override
     public void onUnbindViewHolder(ViewHolder viewHolder) {
-
+        PresenterViewHolder holder = (PresenterViewHolder) viewHolder;
+        streamInterface.unRegistration(holder.audioItem);
     }
 
     class PresenterViewHolder extends ViewHolder {
@@ -43,6 +48,7 @@ public class AudioItemPresenter extends Presenter {
 
         void bind(AudioFile audioFile) {
             audioItem.setData(audioFile);
+            streamInterface.registration(audioItem);
         }
 
     }

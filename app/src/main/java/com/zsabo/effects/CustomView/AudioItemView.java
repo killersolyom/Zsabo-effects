@@ -54,4 +54,7 @@ public class AudioItemView extends ConstraintLayout {
         }
     }
 
+    public String getTitle() {
+        return audioTitleView.getText();
+    }
 }
