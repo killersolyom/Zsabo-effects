@@ -17,7 +17,7 @@ import com.zsabo.effects.R;
 public class AudioItemTitleView extends ConstraintLayout {
 
     private String textContent;
-    private int maxLength = 37;
+    private int maxLength = 36;
     private CurvedTextView curvedTextView;
 
     public AudioItemTitleView(Context context, AttributeSet attrs) {
@@ -69,7 +69,7 @@ public class AudioItemTitleView extends ConstraintLayout {
             mPaintText = new Paint(Paint.ANTI_ALIAS_FLAG);
             mPaintText.setStyle(Paint.Style.FILL_AND_STROKE);
             mPaintText.setColor(Color.WHITE);
-            mPaintText.setTextSize(35f);
+            mPaintText.setTextSize(widthOffset + 5);
             return true;
         }
 
