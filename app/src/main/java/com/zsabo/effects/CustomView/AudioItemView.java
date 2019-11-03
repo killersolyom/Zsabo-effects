@@ -6,21 +6,19 @@ import android.view.LayoutInflater;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.zsabo.effects.Models.AudioFile;
 import com.zsabo.effects.R;
-import com.zsabo.effects.Utilities.DataManager;
 import com.zsabo.effects.Utilities.GlideUtils;
 
 public class AudioItemView extends ConstraintLayout {
 
     private ImageView itemImage;
-    private TextView listenCounter;
     private Animation clickAnimator;
     private AudioItemTitleView audioTitleView;
+    private AudioItemListenCounterView listenCounterView;
     private Animation.AnimationListener clickAnimatorListener;
 
     public AudioItemView(Context context, AttributeSet attrs) {
@@ -30,15 +28,14 @@ public class AudioItemView extends ConstraintLayout {
         initClickAnimatorListener(this);
         clickAnimator.setAnimationListener(clickAnimatorListener);
         itemImage = findViewById(R.id.item_image_view);
-        listenCounter = findViewById(R.id.item_listen_counter);
+        listenCounterView = findViewById(R.id.item_listen_counter_view);
         audioTitleView = findViewById(R.id.item_title_layout);
     }
 
     public void onBind(final AudioFile audioFile) {
-
         GlideUtils.getInstance().loadImage(R.drawable.play_button_icon, itemImage);
         audioTitleView.setTitle(audioFile.getTitle());
-        setCounterNumber(audioFile);
+        listenCounterView.displayCounter(audioFile);
         addClickListener(audioFile);
     }
 
@@ -56,18 +53,7 @@ public class AudioItemView extends ConstraintLayout {
 
     private void onItemSelected(AudioFile audioFile) {
         if (audioFile.play()) {
-            DataManager.getInstance().increaseListenCounter(audioFile.getTitle());
-            setCounterNumber(audioFile);
-        }
-    }
-
-    private void setCounterNumber(AudioFile audioFile) {
-        long number = DataManager.getInstance().getListenCounter(audioFile.getTitle());
-        if (number > 0L) {
-            listenCounter.setText(String.valueOf(number));
-            listenCounter.setVisibility(VISIBLE);
-        } else {
-            listenCounter.setVisibility(GONE);
+            listenCounterView.increaseCounter(audioFile);
         }
     }
 

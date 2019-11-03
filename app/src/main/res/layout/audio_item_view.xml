@@ -41,15 +41,11 @@
         app:layout_constraintTop_toTopOf="@id/item_background"
         tool:ignore="ContentDescription" />
 
-    <TextView
-        android:id="@+id/item_listen_counter"
+    <com.zsabo.effects.CustomView.AudioItemListenCounterView
+        android:id="@+id/item_listen_counter_view"
         android:layout_width="@dimen/audio_item_listen_counter_size"
         android:layout_height="@dimen/audio_item_listen_counter_size"
         android:layout_marginTop="2dp"
-        android:background="@drawable/listen_counter_item_background_selector"
-        android:gravity="center"
-        android:textColor="@color/colorWhite"
-        android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
