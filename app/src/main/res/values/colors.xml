@@ -9,4 +9,6 @@
     <color name="colorGreen">#2CEC0D</color>
     <color name="colorBlue">#65DBE6</color>
     <color name="colorOverlay">#CC090808</color>
+    <color name="colorTransparentBlack">#A8030303</color>
+    <color name="colorTransparentOverlay">#72030303</color>
 </resources>

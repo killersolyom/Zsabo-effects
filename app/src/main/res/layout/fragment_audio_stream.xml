@@ -5,6 +5,16 @@
     android:layout_height="match_parent"
     tools:context=".Fragment.AudioStreamFragment">
 
+    <ImageView
+        android:id="@+id/setting_fragment_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <ImageView
+        android:background="@color/colorTransparentOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/audio_recycler_view"
         android:textAlignment="center"

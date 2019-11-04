@@ -23,7 +23,6 @@ public class MainActivity extends AppCompatActivity implements
     private NavigationView navigationView;
     private DrawerLayout drawerLayout;
     private NotificationBar notificationBar;
-    private ImageView background;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,9 +30,7 @@ public class MainActivity extends AppCompatActivity implements
         setContentView(R.layout.activity_main);
         notificationBar = findViewById(R.id.notification_bar);
         navigationView = findViewById(R.id.nav_view);
-        background = findViewById(R.id.background_image);
         drawerLayout = findViewById(R.id.drawer_layout);
-        Glide.with(getApplicationContext()).load(R.drawable.bcg1).centerCrop().into(background);
         FragmentNavigation.getInstance().initComponents(this, this);
         GlideUtils.getInstance().initialize(getApplicationContext());
         DataManager.getInstance().initManager(this);

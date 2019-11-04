@@ -11,6 +11,7 @@
         android:layout_height="wrap_content"
         android:clipChildren="false"
         android:clipToPadding="false"
+        android:alpha="0.95"
         android:layout_marginBottom="5dp"
         android:stateListAnimator="@drawable/audio_item_animator" />
 

@@ -17,7 +17,7 @@ import com.zsabo.effects.R;
 public class AudioItemTitleView extends ConstraintLayout {
 
     private String textContent;
-    private int maxLength = 36;
+    private final int maxLength = 36;
     private CurvedTextView curvedTextView;
 
     public AudioItemTitleView(Context context, AttributeSet attrs) {

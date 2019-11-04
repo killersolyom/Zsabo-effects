@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -22,6 +23,7 @@ import com.zsabo.effects.Models.RunnableObject;
 import com.zsabo.effects.Presenter.AudioItemPresenter;
 import com.zsabo.effects.Presenter.RandomAudioItemPresenter;
 import com.zsabo.effects.R;
+import com.zsabo.effects.Utilities.GlideUtils;
 import com.zsabo.effects.Utilities.ResourceReader;
 
 import java.util.ArrayList;
@@ -31,9 +33,10 @@ public class AudioStreamFragment extends Fragment implements AudioStreamInterfac
 
     private View view;
     private Random random;
-    private int portraitColumnNumber = 3;
-    private int landscapeColumnNumber = 5;
+    private final int portraitColumnNumber = 3;
+    private final int landscapeColumnNumber = 5;
     private ItemBridgeAdapter adapter;
+    private ImageView background;
     private RecyclerView soundRecyclerView;
     private ArrayObjectAdapter objectAdapter;
     private ArrayList<AudioItemView> audioItemViews;
@@ -60,6 +63,7 @@ public class AudioStreamFragment extends Fragment implements AudioStreamInterfac
             view = inflater.inflate(R.layout.fragment_audio_stream, container, false);
             layoutManager = new GridLayoutManager(this.getContext(), portraitColumnNumber);
             soundRecyclerView = view.findViewById(R.id.audio_recycler_view);
+            background = view.findViewById(R.id.setting_fragment_background);
             soundRecyclerView.setLayoutManager(layoutManager);
             initPresenters();
         }
@@ -108,6 +112,7 @@ public class AudioStreamFragment extends Fragment implements AudioStreamInterfac
     @Override
     public void onResume() {
         super.onResume();
+        GlideUtils.getInstance().loadBackgroundImage(R.drawable.bcg2, background);
         adapter.notifyDataSetChanged();
     }
 
@@ -121,5 +126,11 @@ public class AudioStreamFragment extends Fragment implements AudioStreamInterfac
     public void unRegistration(AudioItemView audioItem) {
         boolean result = audioItemViews.remove(audioItem);
         Log.d(TAG, "UnRegister item: " + audioItem.getTitle() + " Success " + result);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        GlideUtils.getInstance().clearImage(background);
     }
 }

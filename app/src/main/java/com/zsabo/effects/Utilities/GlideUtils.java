@@ -28,6 +28,10 @@ public class GlideUtils {
         Glide.with(context).load(id).fitCenter().into(imageView);
     }
 
+    public void loadBackgroundImage(int id, ImageView imageView) {
+        Glide.with(context).load(id).centerCrop().into(imageView);
+    }
+
     public void clearImage(ImageView imageView) {
         Glide.with(context).clear(imageView);
     }
