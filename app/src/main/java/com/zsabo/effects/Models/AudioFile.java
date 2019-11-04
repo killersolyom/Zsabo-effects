@@ -15,12 +15,27 @@ public class AudioFile {
     private AudioManager audioManager;
     private String title;
     private Context context;
+    private int resourceID;
+    private MediaPlayer.OnCompletionListener onCompletionListener;
 
-    public AudioFile(String title, MediaPlayer mPlayer, Context context) {
+    public AudioFile(String title, int resourceID, Context context) {
         this.title = title;
-        this.mPlayer = mPlayer;
         this.context = context;
+        this.resourceID = resourceID;
+        initPlayer();
+        onCompletionListener = mediaPlayer -> releaseMediaPlayer();
         audioManager = (AudioManager) context.getSystemService(AUDIO_SERVICE);
+
+    }
+
+    private void initPlayer() {
+        mPlayer = MediaPlayer.create(context, resourceID);
+        mPlayer.setOnCompletionListener(onCompletionListener);
+    }
+
+    private void releaseMediaPlayer() {
+        mPlayer.release();
+        mPlayer = null;
     }
 
     public String getTitle() {
@@ -35,7 +50,6 @@ public class AudioFile {
             } else {
                 FragmentNavigation.getInstance().showNotificationBar("Óriási hiba!", "Adjál rá hangot vaze!", context.getDrawable(R.drawable.warning_image), true);
             }
-            return false;
         }
         return false;
     }
