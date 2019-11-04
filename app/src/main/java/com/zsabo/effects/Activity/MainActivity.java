@@ -34,11 +34,14 @@ public class MainActivity extends AppCompatActivity implements
         background = findViewById(R.id.background_image);
         drawerLayout = findViewById(R.id.drawer_layout);
         Glide.with(getApplicationContext()).load(R.drawable.bcg1).centerCrop().into(background);
-        initNavigationBar();
+        FragmentNavigation.getInstance().initComponents(this, this);
         GlideUtils.getInstance().initialize(getApplicationContext());
         DataManager.getInstance().initManager(this);
-        FragmentNavigation.getInstance().initComponents(this, this);
-        FragmentNavigation.getInstance().showAudioStreamFragment();
+        initNavigationBar();
+
+        if (savedInstanceState == null) {
+            FragmentNavigation.getInstance().showAudioStreamFragment();
+        }
     }
 
 
@@ -67,5 +70,11 @@ public class MainActivity extends AppCompatActivity implements
     protected void onPause() {
         super.onPause();
         notificationBar.clearAllTask();
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle bundle) {
+        super.onSaveInstanceState(bundle);
+        bundle.putString("Rotation", "ROTATED");
     }
 }

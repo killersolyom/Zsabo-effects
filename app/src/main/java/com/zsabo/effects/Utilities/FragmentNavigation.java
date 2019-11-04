@@ -13,15 +13,20 @@ import com.zsabo.effects.Fragment.AudioStreamFragment;
 import com.zsabo.effects.Fragment.SettingsFragment;
 import com.zsabo.effects.R;
 
+import java.io.Serializable;
+
 public class FragmentNavigation {
 
     private FragmentManager fragmentManager;
     private MainActivityInterface mainInterface;
 
 
-    private static final FragmentNavigation ourInstance = new FragmentNavigation();
+    private static FragmentNavigation ourInstance;
 
     public static FragmentNavigation getInstance() {
+        if(ourInstance==null){
+            ourInstance = new FragmentNavigation();
+        }
         return ourInstance;
     }
 
@@ -47,6 +52,7 @@ public class FragmentNavigation {
                 .addToBackStack(fragment.getTag())
                 .commit();
     }
+
 
     private void clearBackStack() {
         for (int i = 1; i < fragmentManager.getBackStackEntryCount(); ++i) {
