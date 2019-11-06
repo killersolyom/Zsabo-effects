@@ -6,8 +6,8 @@ import android.view.ViewGroup;
 
 import androidx.leanback.widget.Presenter;
 
-import com.zsabo.effects.CustomView.RandomAudioItemView;
-import com.zsabo.effects.Models.RunnableObject;
+import com.zsabo.effects.CustomView.AudioItem.RandomAudioItemView;
+import com.zsabo.effects.Models.RunnableObjectModel;
 import com.zsabo.effects.R;
 
 
@@ -24,7 +24,7 @@ public class RandomAudioItemPresenter extends Presenter {
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, Object item) {
         PresenterViewHolder holder = (PresenterViewHolder) viewHolder;
-        holder.bind(((RunnableObject) item).getRunnable());
+        holder.bind(((RunnableObjectModel) item).getRunnable());
     }
 
     @Override

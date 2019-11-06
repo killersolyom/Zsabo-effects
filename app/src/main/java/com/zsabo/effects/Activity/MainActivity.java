@@ -2,16 +2,14 @@ package com.zsabo.effects.Activity;
 
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.bumptech.glide.Glide;
 import com.google.android.material.navigation.NavigationView;
 import com.zsabo.effects.Communication.MainActivityInterface;
-import com.zsabo.effects.CustomView.NotificationBar;
+import com.zsabo.effects.CustomView.Other.NotificationBar;
 import com.zsabo.effects.R;
 import com.zsabo.effects.Utilities.DataManager;
 import com.zsabo.effects.Utilities.FragmentNavigation;

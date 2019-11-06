@@ -5,7 +5,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
-    <com.zsabo.effects.CustomView.AudioItemView
+    <com.zsabo.effects.CustomView.AudioItem.AudioItemView
         android:id="@+id/audio_item"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

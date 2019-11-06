@@ -17,9 +17,9 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.zsabo.effects.Communication.AudioStreamInterface;
-import com.zsabo.effects.CustomView.AudioItemView;
+import com.zsabo.effects.CustomView.AudioItem.AudioItemView;
 import com.zsabo.effects.Models.AudioFile;
-import com.zsabo.effects.Models.RunnableObject;
+import com.zsabo.effects.Models.RunnableObjectModel;
 import com.zsabo.effects.Presenter.AudioItemPresenter;
 import com.zsabo.effects.Presenter.RandomAudioItemPresenter;
 import com.zsabo.effects.R;
@@ -85,7 +85,7 @@ public class AudioStreamFragment extends Fragment implements AudioStreamInterfac
             objectAdapter.add(it);
         }
         if (objectAdapter.size() != 0) {
-            objectAdapter.add(new RunnableObject(this::playRandomItem));
+            objectAdapter.add(new RunnableObjectModel(this::playRandomItem));
         }
     }
 
@@ -93,7 +93,7 @@ public class AudioStreamFragment extends Fragment implements AudioStreamInterfac
         AudioItemPresenter audioItemPresenter = new AudioItemPresenter(this);
         RandomAudioItemPresenter randomAudioItemPresenter = new RandomAudioItemPresenter();
         presenterSelector.addClassPresenter(AudioFile.class, audioItemPresenter);
-        presenterSelector.addClassPresenter(RunnableObject.class, randomAudioItemPresenter);
+        presenterSelector.addClassPresenter(RunnableObjectModel.class, randomAudioItemPresenter);
         return presenterSelector;
     }
 
@@ -117,13 +117,13 @@ public class AudioStreamFragment extends Fragment implements AudioStreamInterfac
     }
 
     @Override
-    public void registration(AudioItemView audioItem) {
+    public void register(AudioItemView audioItem) {
         boolean result = audioItemViews.add(audioItem);
         Log.d(TAG, "Register item: " + audioItem.getTitle() + " Success " + result);
     }
 
     @Override
-    public void unRegistration(AudioItemView audioItem) {
+    public void unRegister(AudioItemView audioItem) {
         boolean result = audioItemViews.remove(audioItem);
         Log.d(TAG, "UnRegister item: " + audioItem.getTitle() + " Success " + result);
     }

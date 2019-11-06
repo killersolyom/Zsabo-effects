@@ -1,4 +1,4 @@
-package com.zsabo.effects.CustomView;
+package com.zsabo.effects.CustomView.AudioItem;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -40,11 +40,9 @@ public class AudioItemView extends ConstraintLayout {
     }
 
     public void onUnBind() {
-        if (itemImage.getDrawable() == getResources().getDrawable(R.drawable.play_button_icon)) {
-            GlideUtils.getInstance().clearImage(itemImage);
-            audioTitleView.removeTitle();
-            this.setOnClickListener(null);
-        }
+        GlideUtils.getInstance().clearImage(itemImage);
+        audioTitleView.removeTitle();
+        this.setOnClickListener(null);
     }
 
     private void addClickListener(AudioFile audioFile) {

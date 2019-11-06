@@ -17,7 +17,6 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/audio_recycler_view"
-        android:textAlignment="center"
         android:clipToPadding="false"
         android:clipChildren="false"
         android:paddingTop="14dp"

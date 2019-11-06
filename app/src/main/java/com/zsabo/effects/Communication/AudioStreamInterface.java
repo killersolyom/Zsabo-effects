@@ -1,11 +1,11 @@
 package com.zsabo.effects.Communication;
 
-import com.zsabo.effects.CustomView.AudioItemView;
+import com.zsabo.effects.CustomView.AudioItem.AudioItemView;
 
 public interface AudioStreamInterface {
 
-    void registration(AudioItemView audioItemView);
+    void register(AudioItemView audioItemView);
 
-    void unRegistration(AudioItemView audioItem);
+    void unRegister(AudioItemView audioItem);
 
 }

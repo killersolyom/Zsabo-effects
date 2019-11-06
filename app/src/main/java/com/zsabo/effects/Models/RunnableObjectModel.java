@@ -1,9 +1,9 @@
 package com.zsabo.effects.Models;
 
-public class RunnableObject {
+public class RunnableObjectModel {
     private Runnable runnable;
 
-    public RunnableObject(Runnable runnable) {
+    public RunnableObjectModel(Runnable runnable) {
         this.runnable = runnable;
     }
 

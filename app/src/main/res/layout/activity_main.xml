@@ -17,7 +17,7 @@
         android:layout_alignParentTop="true"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <com.zsabo.effects.CustomView.NotificationBar
+    <com.zsabo.effects.CustomView.Other.NotificationBar
         android:id="@+id/notification_bar"
         android:layout_width="wrap_content"
         android:layout_height="75dp"

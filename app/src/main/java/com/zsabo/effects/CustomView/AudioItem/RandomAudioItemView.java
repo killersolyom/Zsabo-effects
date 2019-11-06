@@ -1,4 +1,4 @@
-package com.zsabo.effects.CustomView;
+package com.zsabo.effects.CustomView.AudioItem;
 
 import android.content.Context;
 import android.util.AttributeSet;

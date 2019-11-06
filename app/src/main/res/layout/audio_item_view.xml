@@ -17,7 +17,7 @@
         app:layout_constraintStart_toStartOf="parent"
         tool:ignore="ContentDescription" />
 
-    <com.zsabo.effects.CustomView.AudioItemTitleView
+    <com.zsabo.effects.CustomView.AudioItem.AudioItemTitleView
         android:id="@+id/item_title_layout"
         android:layout_width="@dimen/audio_item_image_size"
         android:layout_height="@dimen/audio_item_image_size"
@@ -41,7 +41,7 @@
         app:layout_constraintTop_toTopOf="@id/item_background"
         tool:ignore="ContentDescription" />
 
-    <com.zsabo.effects.CustomView.AudioItemListenCounterView
+    <com.zsabo.effects.CustomView.AudioItem.AudioItemListenCounterView
         android:id="@+id/item_listen_counter_view"
         android:layout_width="@dimen/audio_item_listen_counter_size"
         android:layout_height="@dimen/audio_item_listen_counter_size"

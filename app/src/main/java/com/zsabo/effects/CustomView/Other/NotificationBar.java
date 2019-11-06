@@ -1,4 +1,4 @@
-package com.zsabo.effects.CustomView;
+package com.zsabo.effects.CustomView.Other;
 
 import android.app.Application;
 import android.content.Context;

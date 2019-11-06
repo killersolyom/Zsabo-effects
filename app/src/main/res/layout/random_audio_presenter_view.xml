@@ -3,7 +3,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
-    <com.zsabo.effects.CustomView.RandomAudioItemView
+    <com.zsabo.effects.CustomView.AudioItem.RandomAudioItemView
         android:id="@+id/random_audio_item"
         android:layout_marginTop="15dp"
         android:layout_width="wrap_content"
