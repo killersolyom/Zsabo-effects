@@ -35,6 +35,7 @@ public class AudioItemPresenter extends Presenter {
     public void onUnbindViewHolder(ViewHolder viewHolder) {
         PresenterViewHolder holder = (PresenterViewHolder) viewHolder;
         streamInterface.unRegister(holder.audioItem);
+        holder.audioItem.onUnBind();
     }
 
     class PresenterViewHolder extends ViewHolder {

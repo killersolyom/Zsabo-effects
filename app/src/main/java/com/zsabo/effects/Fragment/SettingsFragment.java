@@ -60,9 +60,6 @@ public class SettingsFragment extends Fragment {
     }
 
     private void initPresenters() {
-        if (getContext() == null) {
-            return;
-        }
         presenterSelector = setUpPresenter();
         setUpFragmentItems();
         adapter.setPresenter(presenterSelector);
