@@ -2,6 +2,7 @@ package com.zsabo.effects.Activity;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,6 +22,7 @@ public class MainActivity extends AppCompatActivity implements
     private NavigationView navigationView;
     private DrawerLayout drawerLayout;
     private NotificationBar notificationBar;
+    private ImageView drawerHeaderImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,18 +34,11 @@ public class MainActivity extends AppCompatActivity implements
         FragmentNavigation.getInstance().initComponents(this, this);
         GlideUtils.getInstance().initialize(getApplicationContext());
         DataManager.getInstance().initManager(this);
-        initNavigationBar();
 
         if (savedInstanceState == null) {
             FragmentNavigation.getInstance().showAudioStreamFragment();
         }
     }
-
-
-    private void initNavigationBar() {
-        navigationView.setNavigationItemSelectedListener(this);
-    }
-
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -65,6 +60,15 @@ public class MainActivity extends AppCompatActivity implements
     protected void onPause() {
         super.onPause();
         notificationBar.clearAllTask();
+        GlideUtils.getInstance().clearImage(drawerHeaderImage);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        navigationView.setNavigationItemSelectedListener(this);
+        drawerHeaderImage = (navigationView.getHeaderView(0)).findViewById(R.id.drawer_menu_image);
+        GlideUtils.getInstance().loadBackgroundImage(R.drawable.drawer_image, drawerHeaderImage);
     }
 
     @Override

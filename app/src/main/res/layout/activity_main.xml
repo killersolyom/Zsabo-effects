@@ -9,27 +9,36 @@
     android:background="@android:color/transparent"
     tools:openDrawer="start">
 
-    <FrameLayout
-        android:id="@+id/fragment_container"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:layout_height="match_parent">
 
-    <com.zsabo.effects.CustomView.Other.NotificationBar
-        android:id="@+id/notification_bar"
-        android:layout_width="wrap_content"
-        android:layout_height="75dp"
-        android:layout_marginTop="175dp"
-        android:paddingStart="-2dp"
-        android:paddingEnd="0dp"
-        android:visibility="invisible"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <FrameLayout
+            android:id="@+id/fragment_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <com.zsabo.effects.CustomView.Other.NotificationBar
+            android:id="@+id/notification_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="75dp"
+            android:layout_marginTop="30dp"
+            android:paddingStart="-2dp"
+            android:paddingEnd="0dp"
+            android:visibility="invisible"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"
+        app:itemTextColor="@color/colorWhite"
+        app:itemIconTint="@color/colorRed"
+        android:background="@color/colorBlack"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"

@@ -24,7 +24,7 @@ public class FragmentNavigation {
     private static FragmentNavigation ourInstance;
 
     public static FragmentNavigation getInstance() {
-        if(ourInstance==null){
+        if (ourInstance == null) {
             ourInstance = new FragmentNavigation();
         }
         return ourInstance;
