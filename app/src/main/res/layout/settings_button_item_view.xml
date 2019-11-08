@@ -23,7 +23,7 @@
         android:gravity="center"
         android:paddingStart="35dp"
         android:paddingEnd="35dp"
-        android:stateListAnimator="@drawable/audio_item_animator"
+        android:stateListAnimator="@drawable/settings_item_animator"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
