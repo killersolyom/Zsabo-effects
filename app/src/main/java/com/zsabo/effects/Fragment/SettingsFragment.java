@@ -19,6 +19,7 @@ import com.zsabo.effects.Models.SettingsButtonModel;
 import com.zsabo.effects.Presenter.SettingsButtonPresenter;
 import com.zsabo.effects.R;
 import com.zsabo.effects.Utilities.DataManager;
+import com.zsabo.effects.Utilities.FragmentNavigation;
 import com.zsabo.effects.Utilities.GlideUtils;
 import com.zsabo.effects.Utilities.ResourceReader;
 
@@ -69,7 +70,9 @@ public class SettingsFragment extends Fragment {
     }
 
     private void setUpFragmentItems() {
-        objectAdapter.add(new SettingsButtonModel(this::clearAllListenCounter, getContext().getString(R.string.clear_listen_counters)));
+        if (getContext() != null) {
+            objectAdapter.add(new SettingsButtonModel(this::clearAllListenCounter, getContext().getString(R.string.clear_listen_counters)));
+        }
     }
 
     private ClassPresenterSelector setUpPresenter() {
@@ -82,6 +85,13 @@ public class SettingsFragment extends Fragment {
     private void clearAllListenCounter() {
         for (String it : ResourceReader.getInstance().getAudioFileNames(getContext())) {
             DataManager.getInstance().resetCounter(it);
+        }
+        if (getContext() != null) {
+            FragmentNavigation.getInstance().showNotificationBar(
+                    getContext().getString(R.string.finished),
+                    getContext().getString(R.string.successfully_cleared),
+                    getContext().getDrawable(R.drawable.success_image),
+                    false);
         }
     }
 

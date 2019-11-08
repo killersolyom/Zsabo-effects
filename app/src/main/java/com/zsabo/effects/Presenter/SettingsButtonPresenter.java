@@ -30,6 +30,8 @@ public class SettingsButtonPresenter extends Presenter {
 
     @Override
     public void onUnbindViewHolder(ViewHolder viewHolder) {
+        PresenterViewHolder holder = (PresenterViewHolder) viewHolder;
+        holder.settingsButtonView.unBind();
     }
 
     class PresenterViewHolder extends ViewHolder {
@@ -41,12 +43,10 @@ public class SettingsButtonPresenter extends Presenter {
             settingsButtonView = itemView.findViewById(R.id.settings_button_item);
         }
 
-        void bind(SettingsButtonModel settingsButtonModel) {
-            //title.setText(settingsButtonModel.getTitle());
-            settingsButtonView.setOnClickListener(view -> settingsButtonModel.getRunnable().run());
+        void bind(SettingsButtonModel settingsModel) {
+            settingsButtonView.onBind(settingsModel);
         }
 
     }
-
 
 }

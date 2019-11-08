@@ -17,5 +17,7 @@
     <string name="menu_others">Egyebek</string>
     <string name="menu_exit">Kilépés</string>
     <string name="clear_listen_counters">Hallgatás számainak törlése</string>
+    <string name="successfully_cleared">Ezt jól kitörölted!</string>
+    <string name="finished">Nagy siker!</string>
     <string name="question_mark">\?</string>
 </resources>
