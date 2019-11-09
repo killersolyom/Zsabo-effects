@@ -26,7 +26,6 @@ import com.zsabo.effects.Utilities.ResourceReader;
 public class SettingsFragment extends Fragment {
 
     private RecyclerView settingsRecyclerView;
-    private ItemBridgeAdapter adapter;
     private ClassPresenterSelector presenterSelector;
     private ArrayObjectAdapter objectAdapter;
     private ImageView background;
@@ -44,14 +43,10 @@ public class SettingsFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (view == null) {
-            presenterSelector = new ClassPresenterSelector();
-            adapter = new ItemBridgeAdapter();
-            objectAdapter = new ArrayObjectAdapter();
             view = inflater.inflate(R.layout.fragment_settings, container, false);
             settingsRecyclerView = view.findViewById(R.id.settings_recycler_view);
             settingsRecyclerView.setLayoutManager(new GridLayoutManager(this.getContext(), 1));
             background = view.findViewById(R.id.setting_fragment_background);
-            initPresenters();
         }
         return view;
     }
@@ -61,6 +56,9 @@ public class SettingsFragment extends Fragment {
     }
 
     private void initPresenters() {
+        presenterSelector = new ClassPresenterSelector();
+        ItemBridgeAdapter adapter = new ItemBridgeAdapter();
+        objectAdapter = new ArrayObjectAdapter();
         presenterSelector = setUpPresenter();
         setUpFragmentItems();
         adapter.setPresenter(presenterSelector);
@@ -98,6 +96,7 @@ public class SettingsFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        initPresenters();
         GlideUtils.getInstance().loadBackgroundImage(R.drawable.bcg1, background);
     }
 
