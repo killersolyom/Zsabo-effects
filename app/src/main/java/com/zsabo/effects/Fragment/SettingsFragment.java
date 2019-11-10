@@ -1,5 +1,6 @@
 package com.zsabo.effects.Fragment;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,11 +26,14 @@ import com.zsabo.effects.Utilities.ResourceReader;
 
 public class SettingsFragment extends Fragment {
 
-    private RecyclerView settingsRecyclerView;
-    private ClassPresenterSelector presenterSelector;
-    private ArrayObjectAdapter objectAdapter;
-    private ImageView background;
     private View view;
+    private ImageView background;
+    private GridLayoutManager layoutManager;
+    private ArrayObjectAdapter objectAdapter;
+    private RecyclerView settingsRecyclerView;
+    private final int portraitColumnNumber = 1;
+    private final int landscapeColumnNumber = 2;
+    private ClassPresenterSelector presenterSelector;
 
     public SettingsFragment() {
     }
@@ -45,7 +49,8 @@ public class SettingsFragment extends Fragment {
         if (view == null) {
             view = inflater.inflate(R.layout.fragment_settings, container, false);
             settingsRecyclerView = view.findViewById(R.id.settings_recycler_view);
-            settingsRecyclerView.setLayoutManager(new GridLayoutManager(this.getContext(), 1));
+            layoutManager = new GridLayoutManager(this.getContext(), 1);
+            settingsRecyclerView.setLayoutManager(layoutManager);
             background = view.findViewById(R.id.setting_fragment_background);
         }
         return view;
@@ -93,11 +98,21 @@ public class SettingsFragment extends Fragment {
         }
     }
 
+    private void handleRotation() {
+        if (this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            layoutManager.setSpanCount(portraitColumnNumber);
+            GlideUtils.getInstance().changeBackgroundWithFadeOut(R.drawable.bcg1, background);
+        } else {
+            layoutManager.setSpanCount(landscapeColumnNumber);
+            GlideUtils.getInstance().changeBackgroundWithFadeOut(R.drawable.bcg4, background);
+        }
+    }
+
     @Override
     public void onResume() {
         super.onResume();
         initPresenters();
-        GlideUtils.getInstance().loadBackgroundImage(R.drawable.bcg1, background);
+        handleRotation();
     }
 
     @Override

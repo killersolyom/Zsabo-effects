@@ -102,15 +102,17 @@ public class AudioStreamFragment extends Fragment implements AudioStreamInterfac
     private void handleRotation() {
         if (this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
             layoutManager.setSpanCount(portraitColumnNumber);
+            GlideUtils.getInstance().changeBackgroundWithFadeOut(R.drawable.bcg2, background);
         } else {
             layoutManager.setSpanCount(landscapeColumnNumber);
+            GlideUtils.getInstance().changeBackgroundWithFadeOut(R.drawable.bcg3, background);
         }
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        GlideUtils.getInstance().loadBackgroundImage(R.drawable.bcg2, background);
+        handleRotation();
         adapter.notifyDataSetChanged();
     }
 

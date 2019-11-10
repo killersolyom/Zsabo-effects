@@ -19,10 +19,10 @@ import com.zsabo.effects.Utilities.GlideUtils;
 public class MainActivity extends AppCompatActivity implements
         NavigationView.OnNavigationItemSelectedListener, MainActivityInterface {
 
-    private NavigationView navigationView;
     private DrawerLayout drawerLayout;
-    private NotificationBar notificationBar;
     private ImageView drawerHeaderImage;
+    private NavigationView navigationView;
+    private NotificationBar notificationBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
