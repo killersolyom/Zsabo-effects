@@ -22,7 +22,7 @@
 
     <stroke
         android:width="2dp"
-        android:color="@color/colorRed"
+        android:color="@color/colorBlue"
         android:dashWidth="4dp"
         android:dashGap="0dp" />
 </shape>

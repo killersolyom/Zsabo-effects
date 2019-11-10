@@ -26,7 +26,7 @@ public class AudioItemView extends ConstraintLayout {
         super(context, attrs);
         LayoutInflater.from(context).inflate(R.layout.audio_item_view, this, true);
         clickAnimator = AnimationUtils.loadAnimation(getContext(), R.anim.click_animator);
-        clickAnimator.setInterpolator(new BubbleClickAnimator(0.15, 25));
+        clickAnimator.setInterpolator(new BubbleClickAnimator(0.25, 25));
         initClickAnimatorListener(this);
         clickAnimator.setAnimationListener(clickAnimatorListener);
         itemImage = findViewById(R.id.item_image_view);
