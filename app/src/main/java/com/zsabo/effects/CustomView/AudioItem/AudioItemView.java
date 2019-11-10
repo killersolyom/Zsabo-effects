@@ -9,6 +9,7 @@ import android.widget.ImageView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.zsabo.effects.CustomView.Other.BubbleClickAnimator;
 import com.zsabo.effects.Models.AudioFile;
 import com.zsabo.effects.R;
 import com.zsabo.effects.Utilities.GlideUtils;
@@ -25,6 +26,7 @@ public class AudioItemView extends ConstraintLayout {
         super(context, attrs);
         LayoutInflater.from(context).inflate(R.layout.audio_item_view, this, true);
         clickAnimator = AnimationUtils.loadAnimation(getContext(), R.anim.click_animator);
+        clickAnimator.setInterpolator(new BubbleClickAnimator(0.15, 25));
         initClickAnimatorListener(this);
         clickAnimator.setAnimationListener(clickAnimatorListener);
         itemImage = findViewById(R.id.item_image_view);
@@ -47,6 +49,10 @@ public class AudioItemView extends ConstraintLayout {
 
     private void addClickListener(AudioFile audioFile) {
         this.setOnClickListener(view -> onItemSelected(audioFile));
+    }
+
+    public Runnable getButtonAction() {
+        return this::onClick;
     }
 
     private void onItemSelected(AudioFile audioFile) {
@@ -78,7 +84,8 @@ public class AudioItemView extends ConstraintLayout {
         };
     }
 
-    public void OnClick() {
+    public void onClick() {
         this.startAnimation(clickAnimator);
+        this.performClick();
     }
 }

@@ -2,7 +2,6 @@ package com.zsabo.effects.Fragment;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +16,6 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.zsabo.effects.Communication.AudioStreamInterface;
-import com.zsabo.effects.CustomView.AudioItem.AudioItemView;
 import com.zsabo.effects.Models.AudioFile;
 import com.zsabo.effects.Models.RunnableObjectModel;
 import com.zsabo.effects.Presenter.AudioItemPresenter;
@@ -39,7 +37,7 @@ public class AudioStreamFragment extends Fragment implements AudioStreamInterfac
     private ImageView background;
     private RecyclerView soundRecyclerView;
     private ArrayObjectAdapter objectAdapter;
-    private ArrayList<AudioItemView> audioItemViews;
+    private ArrayList<Runnable> audioItemAction;
     private GridLayoutManager layoutManager;
     private ClassPresenterSelector presenterSelector;
     private String TAG = AudioStreamFragment.class.getCanonicalName();
@@ -56,7 +54,7 @@ public class AudioStreamFragment extends Fragment implements AudioStreamInterfac
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (view == null) {
             random = new Random();
-            audioItemViews = new ArrayList<>();
+            audioItemAction = new ArrayList<>();
             presenterSelector = new ClassPresenterSelector();
             adapter = new ItemBridgeAdapter();
             objectAdapter = new ArrayObjectAdapter();
@@ -98,7 +96,7 @@ public class AudioStreamFragment extends Fragment implements AudioStreamInterfac
     }
 
     private void playRandomItem() {
-        audioItemViews.get(random.nextInt(audioItemViews.size())).OnClick();
+        audioItemAction.get(random.nextInt(audioItemAction.size())).run();
     }
 
     private void handleRotation() {
@@ -117,15 +115,8 @@ public class AudioStreamFragment extends Fragment implements AudioStreamInterfac
     }
 
     @Override
-    public void register(AudioItemView audioItem) {
-        boolean result = audioItemViews.add(audioItem);
-        Log.d(TAG, "Register item: " + audioItem.getTitle() + " Success " + result);
-    }
-
-    @Override
-    public void unRegister(AudioItemView audioItem) {
-        boolean result = audioItemViews.remove(audioItem);
-        Log.d(TAG, "UnRegister item: " + audioItem.getTitle() + " Success " + result);
+    public void register(Runnable audioItem) {
+        audioItemAction.add(audioItem);
     }
 
     @Override

@@ -34,7 +34,6 @@ public class AudioItemPresenter extends Presenter {
     @Override
     public void onUnbindViewHolder(ViewHolder viewHolder) {
         PresenterViewHolder holder = (PresenterViewHolder) viewHolder;
-        streamInterface.unRegister(holder.audioItem);
         holder.audioItem.onUnBind();
     }
 
@@ -49,7 +48,7 @@ public class AudioItemPresenter extends Presenter {
 
         void bind(AudioFile audioFile) {
             audioItem.onBind(audioFile);
-            streamInterface.register(audioItem);
+            streamInterface.register(audioItem.getButtonAction());
         }
 
     }
