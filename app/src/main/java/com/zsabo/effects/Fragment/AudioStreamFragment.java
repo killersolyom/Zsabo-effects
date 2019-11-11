@@ -30,14 +30,12 @@ import java.util.Random;
 public class AudioStreamFragment extends Fragment {
 
     private View view;
-    private Random random;
     private final int portraitColumnNumber = 3;
     private final int landscapeColumnNumber = 5;
     private ItemBridgeAdapter adapter;
     private ImageView background;
     private RecyclerView soundRecyclerView;
     private ArrayObjectAdapter objectAdapter;
-    private ArrayList<Runnable> audioItemAction;
     private GridLayoutManager layoutManager;
     private ClassPresenterSelector presenterSelector;
 
@@ -52,8 +50,6 @@ public class AudioStreamFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (view == null) {
-            random = new Random();
-            audioItemAction = new ArrayList<>();
             presenterSelector = new ClassPresenterSelector();
             adapter = new ItemBridgeAdapter();
             objectAdapter = new ArrayObjectAdapter();
@@ -81,10 +77,6 @@ public class AudioStreamFragment extends Fragment {
         for (AudioFile it : ResourceReader.getInstance().getAudioFiles(getContext())) {
             objectAdapter.add(it);
         }
-        /*
-        if (objectAdapter.size() != 0) {
-            objectAdapter.add(new RunnableObjectModel(this::playRandomItem));
-        }*/
     }
 
     private ClassPresenterSelector setUpPresenter() {
@@ -93,10 +85,6 @@ public class AudioStreamFragment extends Fragment {
         presenterSelector.addClassPresenter(AudioFile.class, audioItemPresenter);
         presenterSelector.addClassPresenter(RunnableObjectModel.class, randomAudioItemPresenter);
         return presenterSelector;
-    }
-
-    private void playRandomItem() {
-        audioItemAction.get(random.nextInt(audioItemAction.size())).run();
     }
 
     private void handleRotation() {
