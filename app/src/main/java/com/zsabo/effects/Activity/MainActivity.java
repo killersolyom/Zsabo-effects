@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity implements
         if (savedInstanceState == null) {
             FragmentNavigation.getInstance().showAudioStreamFragment();
         }
+        
     }
 
     @Override
