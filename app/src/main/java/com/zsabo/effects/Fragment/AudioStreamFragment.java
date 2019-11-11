@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
@@ -15,7 +16,6 @@ import androidx.leanback.widget.ItemBridgeAdapter;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.zsabo.effects.Communication.AudioStreamInterface;
 import com.zsabo.effects.Models.AudioFile;
 import com.zsabo.effects.Models.RunnableObjectModel;
 import com.zsabo.effects.Presenter.AudioItemPresenter;
@@ -27,7 +27,7 @@ import com.zsabo.effects.Utilities.ResourceReader;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class AudioStreamFragment extends Fragment implements AudioStreamInterface {
+public class AudioStreamFragment extends Fragment {
 
     private View view;
     private Random random;
@@ -40,7 +40,6 @@ public class AudioStreamFragment extends Fragment implements AudioStreamInterfac
     private ArrayList<Runnable> audioItemAction;
     private GridLayoutManager layoutManager;
     private ClassPresenterSelector presenterSelector;
-    private String TAG = AudioStreamFragment.class.getCanonicalName();
 
     public AudioStreamFragment() {
     }
@@ -82,13 +81,14 @@ public class AudioStreamFragment extends Fragment implements AudioStreamInterfac
         for (AudioFile it : ResourceReader.getInstance().getAudioFiles(getContext())) {
             objectAdapter.add(it);
         }
+        /*
         if (objectAdapter.size() != 0) {
             objectAdapter.add(new RunnableObjectModel(this::playRandomItem));
-        }
+        }*/
     }
 
     private ClassPresenterSelector setUpPresenter() {
-        AudioItemPresenter audioItemPresenter = new AudioItemPresenter(this);
+        AudioItemPresenter audioItemPresenter = new AudioItemPresenter();
         RandomAudioItemPresenter randomAudioItemPresenter = new RandomAudioItemPresenter();
         presenterSelector.addClassPresenter(AudioFile.class, audioItemPresenter);
         presenterSelector.addClassPresenter(RunnableObjectModel.class, randomAudioItemPresenter);
@@ -114,11 +114,6 @@ public class AudioStreamFragment extends Fragment implements AudioStreamInterfac
         super.onResume();
         handleRotation();
         adapter.notifyDataSetChanged();
-    }
-
-    @Override
-    public void register(Runnable audioItem) {
-        audioItemAction.add(audioItem);
     }
 
     @Override

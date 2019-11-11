@@ -49,10 +49,6 @@ public class AudioItemView extends ConstraintLayout {
         this.setOnClickListener(view -> onItemSelected(audioFile));
     }
 
-    public Runnable getButtonAction() {
-        return this::onClick;
-    }
-
     private void onItemSelected(AudioFile audioFile) {
         if (audioFile.play()) {
             listenCounterView.increaseCounter(audioFile);
@@ -61,10 +57,5 @@ public class AudioItemView extends ConstraintLayout {
 
     public String getTitle() {
         return audioTitleView.getText();
-    }
-
-    public void onClick() {
-        this.performClick();
-        this.startAnimation(clickAnimator);
     }
 }
