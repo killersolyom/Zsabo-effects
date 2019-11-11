@@ -25,9 +25,9 @@ public class GlideUtils {
         this.context = context;
     }
 
-    public void loadImage(int id, ImageView imageView) {
+    public void loadAudioImage(int id, ImageView imageView) {
         clearImage(imageView);
-        Glide.with(context).load(id).fitCenter().into(imageView);
+        Glide.with(context).load(id).override(250).fitCenter().into(imageView);
     }
 
     public void loadBackgroundImage(int id, ImageView imageView) {

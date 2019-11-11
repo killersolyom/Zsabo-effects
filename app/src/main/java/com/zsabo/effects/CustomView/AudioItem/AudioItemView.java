@@ -20,22 +20,19 @@ public class AudioItemView extends ConstraintLayout {
     private Animation clickAnimator;
     private AudioItemTitleView audioTitleView;
     private AudioItemListenCounterView listenCounterView;
-    private Animation.AnimationListener clickAnimatorListener;
 
     public AudioItemView(Context context, AttributeSet attrs) {
         super(context, attrs);
         LayoutInflater.from(context).inflate(R.layout.audio_item_view, this, true);
         clickAnimator = AnimationUtils.loadAnimation(getContext(), R.anim.click_animator);
         clickAnimator.setInterpolator(new BubbleClickAnimator(0.25, 25));
-        initClickAnimatorListener(this);
-        clickAnimator.setAnimationListener(clickAnimatorListener);
         itemImage = findViewById(R.id.item_image_view);
         listenCounterView = findViewById(R.id.item_listen_counter_view);
         audioTitleView = findViewById(R.id.item_title_layout);
     }
 
     public void onBind(final AudioFile audioFile) {
-        GlideUtils.getInstance().loadImage(R.drawable.play_button_icon, itemImage);
+        GlideUtils.getInstance().loadAudioImage(R.drawable.play_button_icon, itemImage);
         audioTitleView.setTitle(audioFile.getTitle());
         listenCounterView.displayCounter(audioFile);
         addClickListener(audioFile);
@@ -45,6 +42,7 @@ public class AudioItemView extends ConstraintLayout {
         GlideUtils.getInstance().clearImage(itemImage);
         audioTitleView.removeTitle();
         this.setOnClickListener(null);
+        this.clearAnimation();
     }
 
     private void addClickListener(AudioFile audioFile) {
@@ -65,27 +63,8 @@ public class AudioItemView extends ConstraintLayout {
         return audioTitleView.getText();
     }
 
-    private void initClickAnimatorListener(AudioItemView audioItemView) {
-        clickAnimatorListener = new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-                audioItemView.callOnClick();
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-
-            }
-        };
-    }
-
     public void onClick() {
-        this.startAnimation(clickAnimator);
         this.performClick();
+        this.startAnimation(clickAnimator);
     }
 }

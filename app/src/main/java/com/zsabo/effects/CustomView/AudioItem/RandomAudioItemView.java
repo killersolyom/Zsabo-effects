@@ -16,7 +16,7 @@ public class RandomAudioItemView extends ConstraintLayout {
         super(context, attrs);
         LayoutInflater.from(context).inflate(R.layout.random_audio_item_view, this, true);
         ImageView itemImage = findViewById(R.id.item_image_view);
-        GlideUtils.getInstance().loadImage(R.drawable.random_item_image, itemImage);
+        GlideUtils.getInstance().loadAudioImage(R.drawable.random_item_image, itemImage);
     }
 
 

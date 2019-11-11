@@ -1,5 +1,10 @@
 package com.zsabo.effects.Activity;
 
+import android.content.Intent;
+import android.content.pm.ShortcutInfo;
+import android.content.pm.ShortcutManager;
+import android.graphics.drawable.Icon;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -15,6 +20,8 @@ import com.zsabo.effects.R;
 import com.zsabo.effects.Utilities.DataManager;
 import com.zsabo.effects.Utilities.FragmentNavigation;
 import com.zsabo.effects.Utilities.GlideUtils;
+
+import java.util.Collections;
 
 public class MainActivity extends AppCompatActivity implements
         NavigationView.OnNavigationItemSelectedListener, MainActivityInterface {
@@ -34,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements
         FragmentNavigation.getInstance().initComponents(this, this);
         GlideUtils.getInstance().initialize(getApplicationContext());
         DataManager.getInstance().initManager(this);
-
+        createShortcuts();
         if (savedInstanceState == null) {
             FragmentNavigation.getInstance().showAudioStreamFragment();
         }
@@ -74,6 +81,23 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     protected void onSaveInstanceState(@NonNull Bundle bundle) {
         super.onSaveInstanceState(bundle);
-        bundle.putString("Rotation", "ROTATED");
+        bundle.putString("ROTATED", "ROTATED");
     }
+
+    private void createShortcuts() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
+            ShortcutManager shortcutManager = getSystemService(ShortcutManager.class);
+            ShortcutInfo shortcut = new ShortcutInfo.Builder(this, "second_shortcut")
+                    .setShortLabel("Random hang")
+                    .setLongLabel("Random hang")
+                    .setIcon(Icon.createWithResource(this, R.drawable.application_icon))
+                    .setIntent(new Intent().setAction(Intent.ACTION_SEND).putExtra("RandomItem", "RandomItem"))
+                    .build();
+            if (shortcutManager != null) {
+                shortcutManager.setDynamicShortcuts(Collections.singletonList(shortcut));
+            }
+        }
+    }
+
+
 }
