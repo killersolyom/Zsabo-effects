@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
@@ -23,9 +22,6 @@ import com.zsabo.effects.Presenter.RandomAudioItemPresenter;
 import com.zsabo.effects.R;
 import com.zsabo.effects.Utilities.GlideUtils;
 import com.zsabo.effects.Utilities.ResourceReader;
-
-import java.util.ArrayList;
-import java.util.Random;
 
 public class AudioStreamFragment extends Fragment {
 

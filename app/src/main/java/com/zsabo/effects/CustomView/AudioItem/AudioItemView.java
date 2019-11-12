@@ -17,14 +17,13 @@ import com.zsabo.effects.Utilities.GlideUtils;
 public class AudioItemView extends ConstraintLayout {
 
     private ImageView itemImage;
-    private Animation clickAnimator;
     private AudioItemTitleView audioTitleView;
     private AudioItemListenCounterView listenCounterView;
 
     public AudioItemView(Context context, AttributeSet attrs) {
         super(context, attrs);
         LayoutInflater.from(context).inflate(R.layout.audio_item_view, this, true);
-        clickAnimator = AnimationUtils.loadAnimation(getContext(), R.anim.click_animator);
+        Animation clickAnimator = AnimationUtils.loadAnimation(getContext(), R.anim.click_animator);
         clickAnimator.setInterpolator(new BubbleClickAnimator(0.25, 25));
         itemImage = findViewById(R.id.item_image_view);
         listenCounterView = findViewById(R.id.item_listen_counter_view);
@@ -35,7 +34,7 @@ public class AudioItemView extends ConstraintLayout {
         GlideUtils.getInstance().loadAudioImage(R.drawable.play_button_icon, itemImage);
         audioTitleView.setTitle(audioFile.getTitle());
         listenCounterView.displayCounter(audioFile);
-        addClickListener(audioFile);
+        this.setOnClickListener(view -> onItemSelected(audioFile));
     }
 
     public void onUnBind() {
@@ -43,10 +42,6 @@ public class AudioItemView extends ConstraintLayout {
         audioTitleView.removeTitle();
         this.setOnClickListener(null);
         this.clearAnimation();
-    }
-
-    private void addClickListener(AudioFile audioFile) {
-        this.setOnClickListener(view -> onItemSelected(audioFile));
     }
 
     private void onItemSelected(AudioFile audioFile) {
