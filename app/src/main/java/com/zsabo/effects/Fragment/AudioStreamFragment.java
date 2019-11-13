@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
@@ -33,6 +35,7 @@ public class AudioStreamFragment extends Fragment {
     private RecyclerView soundRecyclerView;
     private ArrayObjectAdapter objectAdapter;
     private GridLayoutManager layoutManager;
+    private Animation slideUpAnimation;
     private ClassPresenterSelector presenterSelector;
 
     public AudioStreamFragment() {
@@ -49,6 +52,7 @@ public class AudioStreamFragment extends Fragment {
             presenterSelector = new ClassPresenterSelector();
             adapter = new ItemBridgeAdapter();
             objectAdapter = new ArrayObjectAdapter();
+            slideUpAnimation = AnimationUtils.loadAnimation(getContext(), R.anim.slide_up_animation);
             view = inflater.inflate(R.layout.fragment_audio_stream, container, false);
             layoutManager = new GridLayoutManager(this.getContext(), portraitColumnNumber);
             soundRecyclerView = view.findViewById(R.id.audio_recycler_view);
@@ -67,6 +71,7 @@ public class AudioStreamFragment extends Fragment {
         adapter.setAdapter(objectAdapter);
         soundRecyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
+        soundRecyclerView.startAnimation(slideUpAnimation);
     }
 
     private void fillAdapter(ArrayObjectAdapter objectAdapter) {
@@ -97,6 +102,7 @@ public class AudioStreamFragment extends Fragment {
     public void onResume() {
         super.onResume();
         handleRotation();
+        soundRecyclerView.startAnimation(slideUpAnimation);
     }
 
     @Override

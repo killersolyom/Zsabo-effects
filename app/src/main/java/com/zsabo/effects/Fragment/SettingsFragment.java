@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
@@ -35,6 +37,7 @@ public class SettingsFragment extends Fragment {
     private RecyclerView settingsRecyclerView;
     private final int portraitColumnNumber = 1;
     private final int landscapeColumnNumber = 2;
+    private Animation slideUpAnimation;
     private ClassPresenterSelector presenterSelector;
 
     public SettingsFragment() {
@@ -49,6 +52,7 @@ public class SettingsFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (view == null) {
+            slideUpAnimation = AnimationUtils.loadAnimation(getContext(), R.anim.slide_up_animation);
             view = inflater.inflate(R.layout.fragment_settings, container, false);
             settingsRecyclerView = view.findViewById(R.id.settings_recycler_view);
             layoutManager = new GridLayoutManager(this.getContext(), 1);
@@ -72,6 +76,7 @@ public class SettingsFragment extends Fragment {
         adapter.setAdapter(objectAdapter);
         settingsRecyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
+        settingsRecyclerView.startAnimation(slideUpAnimation);
     }
 
     private void setUpFragmentItems() {
