@@ -23,14 +23,6 @@ public class DataManager {
         preference = context.getSharedPreferences(context.getApplicationContext().getPackageName(), 0);
     }
 
-    private void writeIntData(int number, String key) {
-        preference.edit().putInt(key, number).apply();
-    }
-
-    private int readIntData(String key) {
-        return preference.getInt(key, 0);
-    }
-
     private void writeLongData(long number, String key) {
         preference.edit().putLong(key, number).apply();
     }
@@ -55,8 +47,16 @@ public class DataManager {
         writeIntData(value, ALPHA_KEY);
     }
 
-    public float getAlphaValue() {
+    public int getAlphaValue() {
         int value = readIntData(ALPHA_KEY);
         return value == 0 ? 10 : value;
+    }
+
+    private void writeIntData(int value, String key) {
+        preference.edit().putInt(key, value).apply();
+    }
+
+    private int readIntData(String key) {
+        return preference.getInt(key, 0);
     }
 }

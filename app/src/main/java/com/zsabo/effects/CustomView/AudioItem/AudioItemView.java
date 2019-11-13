@@ -2,6 +2,7 @@ package com.zsabo.effects.CustomView.AudioItem;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -29,7 +30,7 @@ public class AudioItemView extends ConstraintLayout {
         itemImage = findViewById(R.id.item_image_view);
         listenCounterView = findViewById(R.id.item_listen_counter_view);
         audioTitleView = findViewById(R.id.item_title_layout);
-        setAlpha(DataManager.getInstance().getAlphaValue() / 100);
+        setAlpha((float) DataManager.getInstance().getAlphaValue() / 100);
     }
 
     public void onBind(final AudioFile audioFile) {

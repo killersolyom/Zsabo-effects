@@ -2,6 +2,7 @@ package com.zsabo.effects.Fragment;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import androidx.leanback.widget.ItemBridgeAdapter;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.zsabo.effects.Communication.SettingsFragmentInterface;
 import com.zsabo.effects.Models.SeekBarObjectModel;
 import com.zsabo.effects.Models.SettingsButtonModel;
 import com.zsabo.effects.Presenter.SeekBarPresenter;
@@ -28,16 +30,18 @@ import com.zsabo.effects.Utilities.FragmentNavigation;
 import com.zsabo.effects.Utilities.GlideUtils;
 import com.zsabo.effects.Utilities.ResourceReader;
 
-public class SettingsFragment extends Fragment {
+public class SettingsFragment extends Fragment implements SettingsFragmentInterface {
 
     private View view;
     private ImageView background;
+    private ItemBridgeAdapter adapter;
+    private Animation slideUpAnimation;
     private GridLayoutManager layoutManager;
     private ArrayObjectAdapter objectAdapter;
     private RecyclerView settingsRecyclerView;
     private final int portraitColumnNumber = 1;
     private final int landscapeColumnNumber = 2;
-    private Animation slideUpAnimation;
+    private final String alphaKey = "ALPHA_KEY";
     private ClassPresenterSelector presenterSelector;
 
     public SettingsFragment() {
@@ -68,7 +72,7 @@ public class SettingsFragment extends Fragment {
 
     private void initPresenters() {
         presenterSelector = new ClassPresenterSelector();
-        ItemBridgeAdapter adapter = new ItemBridgeAdapter();
+        adapter = new ItemBridgeAdapter();
         objectAdapter = new ArrayObjectAdapter();
         presenterSelector = setUpPresenter();
         setUpFragmentItems();
@@ -82,7 +86,7 @@ public class SettingsFragment extends Fragment {
     private void setUpFragmentItems() {
         if (getContext() != null) {
             objectAdapter.add(new SettingsButtonModel(this::clearAllListenCounter, getContext().getString(R.string.clear_listen_counters)));
-            objectAdapter.add(new SeekBarObjectModel(getContext().getString(R.string.item_alpha)));
+            objectAdapter.add(new SeekBarObjectModel(getContext().getString(R.string.item_alpha), alphaKey, this));
         }
     }
 
@@ -121,11 +125,25 @@ public class SettingsFragment extends Fragment {
         super.onResume();
         initPresenters();
         handleRotation();
+        adapter.notifyDataSetChanged();
     }
 
     @Override
     public void onPause() {
         super.onPause();
         GlideUtils.getInstance().clearImage(background);
+    }
+
+    @Override
+    public void onValueChanged(String key, int value) {
+        switch (key) {
+            case alphaKey:
+                DataManager.getInstance().setAlphaValue((int) ((value + 15f) / 1.15f));
+                Log.d(SettingsFragment.class.getCanonicalName(), "onValueChanged ALPHA: " + value);
+                break;
+            default:
+                Log.d(SettingsFragment.class.getCanonicalName(), "Unknown value");
+        }
+
     }
 }
