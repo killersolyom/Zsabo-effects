@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 public class DataManager {
-
+    private String ALPHA_KEY = "Alpha_key";
     private SharedPreferences preference;
     private SharedPreferences.Editor editor;
 
@@ -21,6 +21,14 @@ public class DataManager {
     @SuppressLint("CommitPrefEdits")
     public void initManager(Context context) {
         preference = context.getSharedPreferences(context.getApplicationContext().getPackageName(), 0);
+    }
+
+    private void writeIntData(int number, String key) {
+        preference.edit().putInt(key, number).apply();
+    }
+
+    private int readIntData(String key) {
+        return preference.getInt(key, 0);
     }
 
     private void writeLongData(long number, String key) {
@@ -41,5 +49,14 @@ public class DataManager {
 
     public void resetCounter(String title) {
         preference.edit().remove(title).apply();
+    }
+
+    public void setAlphaValue(int value) {
+        writeIntData(value, ALPHA_KEY);
+    }
+
+    public float getAlphaValue() {
+        int value = readIntData(ALPHA_KEY);
+        return value == 0 ? 10 : value;
     }
 }

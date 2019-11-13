@@ -12,6 +12,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import com.zsabo.effects.CustomView.Other.BubbleClickAnimator;
 import com.zsabo.effects.Models.AudioFile;
 import com.zsabo.effects.R;
+import com.zsabo.effects.Utilities.DataManager;
 import com.zsabo.effects.Utilities.GlideUtils;
 
 public class AudioItemView extends ConstraintLayout {
@@ -28,6 +29,7 @@ public class AudioItemView extends ConstraintLayout {
         itemImage = findViewById(R.id.item_image_view);
         listenCounterView = findViewById(R.id.item_listen_counter_view);
         audioTitleView = findViewById(R.id.item_title_layout);
+        setAlpha(DataManager.getInstance().getAlphaValue() / 100);
     }
 
     public void onBind(final AudioFile audioFile) {
