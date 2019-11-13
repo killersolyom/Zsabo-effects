@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.zsabo.effects.Models.SeekBarObjectModel;
 import com.zsabo.effects.Models.SettingsButtonModel;
-import com.zsabo.effects.Presenter.SeekBarItemPresenter;
+import com.zsabo.effects.Presenter.SeekBarPresenter;
 import com.zsabo.effects.Presenter.SettingsButtonPresenter;
 import com.zsabo.effects.R;
 import com.zsabo.effects.Utilities.DataManager;
@@ -82,10 +82,8 @@ public class SettingsFragment extends Fragment {
     }
 
     private ClassPresenterSelector setUpPresenter() {
-        SettingsButtonPresenter settingsButtonPresenter = new SettingsButtonPresenter();
-        SeekBarItemPresenter seekBarItemPresenter = new SeekBarItemPresenter();
-        presenterSelector.addClassPresenter(SettingsButtonModel.class, settingsButtonPresenter);
-        presenterSelector.addClassPresenter(SeekBarObjectModel.class, seekBarItemPresenter);
+        presenterSelector.addClassPresenter(SettingsButtonModel.class, new SettingsButtonPresenter());
+        presenterSelector.addClassPresenter(SeekBarObjectModel.class, new SeekBarPresenter());
         return presenterSelector;
     }
 

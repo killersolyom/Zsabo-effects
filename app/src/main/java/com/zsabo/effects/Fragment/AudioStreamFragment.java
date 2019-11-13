@@ -97,7 +97,6 @@ public class AudioStreamFragment extends Fragment {
     public void onResume() {
         super.onResume();
         handleRotation();
-        adapter.notifyDataSetChanged();
     }
 
     @Override

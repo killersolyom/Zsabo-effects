@@ -2,29 +2,29 @@
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tool="http://schemas.android.com/tools"
-    tool:parentTag="androidx.constraintlayout.widget.ConstraintLayout"
     android:layout_width="match_parent"
-    android:layout_height="45dp">
+    android:layout_height="60dp"
+    tool:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
 
-    <ImageView
-        android:layout_width="250dp"
-        android:layout_height="45dp"
-        android:background="@drawable/settings_button_background_selector"
+    <SeekBar
+        android:layout_width="280dp"
+        android:layout_height="60dp"
+        android:progressDrawable="@drawable/seekbar_style"
+        android:thumb="@drawable/custom_thumb"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/item_text_view"
-        android:layout_width="250dp"
-        android:layout_height="45dp"
+        android:layout_width="280dp"
+        android:layout_height="60dp"
         android:gravity="center"
         android:ellipsize="end"
         android:maxLines="1"
-        android:stateListAnimator="@drawable/settings_item_animator"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </merge>

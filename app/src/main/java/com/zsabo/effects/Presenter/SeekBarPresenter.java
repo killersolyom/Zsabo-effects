@@ -11,14 +11,15 @@ import com.zsabo.effects.Models.SeekBarObjectModel;
 import com.zsabo.effects.R;
 
 
-public class SeekBarItemPresenter extends Presenter {
+public class SeekBarPresenter extends Presenter {
 
-    public SeekBarItemPresenter() {
+
+    public SeekBarPresenter() {
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent) {
-        return new PresenterViewHolder(View.inflate(parent.getContext(), R.layout.seek_bar_presenter_view, null));
+        return new PresenterViewHolder(View.inflate(parent.getContext(), R.layout.seek_bar_view, null));
     }
 
     @Override
@@ -30,7 +31,7 @@ public class SeekBarItemPresenter extends Presenter {
     @Override
     public void onUnbindViewHolder(ViewHolder viewHolder) {
         PresenterViewHolder holder = (PresenterViewHolder) viewHolder;
-        holder.seekBarView.onUnBind();
+        holder.seekBarView.unBind();
     }
 
     class PresenterViewHolder extends ViewHolder {
@@ -42,11 +43,10 @@ public class SeekBarItemPresenter extends Presenter {
             seekBarView = itemView.findViewById(R.id.seek_bar_item);
         }
 
-        void bind(SeekBarObjectModel seekbarObjectModel) {
-            seekBarView.onBind(seekbarObjectModel);
+        void bind(SeekBarObjectModel seekBarObjectModel) {
+            seekBarView.onBind(seekBarObjectModel);
         }
 
     }
-
 
 }
