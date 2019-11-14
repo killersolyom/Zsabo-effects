@@ -125,7 +125,6 @@ public class SettingsFragment extends Fragment implements SettingsFragmentInterf
         super.onResume();
         initPresenters();
         handleRotation();
-        adapter.notifyDataSetChanged();
     }
 
     @Override

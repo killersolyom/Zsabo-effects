@@ -2,6 +2,7 @@ package com.zsabo.effects.Fragment;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import androidx.fragment.app.Fragment;
 import androidx.leanback.widget.ArrayObjectAdapter;
 import androidx.leanback.widget.ClassPresenterSelector;
 import androidx.leanback.widget.ItemBridgeAdapter;
+import androidx.leanback.widget.Presenter;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -49,9 +51,6 @@ public class AudioStreamFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (view == null) {
-            presenterSelector = new ClassPresenterSelector();
-            adapter = new ItemBridgeAdapter();
-            objectAdapter = new ArrayObjectAdapter();
             slideUpAnimation = AnimationUtils.loadAnimation(getContext(), R.anim.slide_up_animation);
             view = inflater.inflate(R.layout.fragment_audio_stream, container, false);
             layoutManager = new GridLayoutManager(this.getContext(), portraitColumnNumber);
@@ -60,11 +59,12 @@ public class AudioStreamFragment extends Fragment {
             soundRecyclerView.setLayoutManager(layoutManager);
             initPresenters();
         }
-        handleRotation();
         return view;
     }
 
     private void initPresenters() {
+        adapter = new ItemBridgeAdapter();
+        objectAdapter = new ArrayObjectAdapter();
         presenterSelector = setUpPresenter();
         fillAdapter(objectAdapter);
         adapter.setPresenter(presenterSelector);
@@ -81,10 +81,9 @@ public class AudioStreamFragment extends Fragment {
     }
 
     private ClassPresenterSelector setUpPresenter() {
-        AudioItemPresenter audioItemPresenter = new AudioItemPresenter();
-        RandomAudioItemPresenter randomAudioItemPresenter = new RandomAudioItemPresenter();
-        presenterSelector.addClassPresenter(AudioFile.class, audioItemPresenter);
-        presenterSelector.addClassPresenter(RunnableObjectModel.class, randomAudioItemPresenter);
+        presenterSelector = new ClassPresenterSelector();
+        presenterSelector.addClassPresenter(AudioFile.class, new AudioItemPresenter());
+        presenterSelector.addClassPresenter(RunnableObjectModel.class, new RandomAudioItemPresenter());
         return presenterSelector;
     }
 
@@ -102,7 +101,9 @@ public class AudioStreamFragment extends Fragment {
     public void onResume() {
         super.onResume();
         handleRotation();
-        soundRecyclerView.startAnimation(slideUpAnimation);
+        if(adapter != null){
+            soundRecyclerView.setAdapter(adapter);
+        }
     }
 
     @Override
