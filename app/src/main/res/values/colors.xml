@@ -11,4 +11,6 @@
     <color name="colorOverlay">#CC090808</color>
     <color name="colorTransparentBlack">#A8030303</color>
     <color name="colorTransparentOverlay">#72030303</color>
+
+    <color name="black_overlay">#66000000</color>
 </resources>

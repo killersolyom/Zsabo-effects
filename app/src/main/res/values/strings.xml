@@ -21,4 +21,8 @@
     <string name="finished">Nagy siker!</string>
     <string name="question_mark">\?</string>
     <string name="item_alpha">Elemek áttetszősége</string>
+
+    <string name="title_activity_play_audio">PlayAudioActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 </resources>

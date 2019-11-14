@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity implements
     private ImageView drawerHeaderImage;
     private NavigationView navigationView;
     private NotificationBar notificationBar;
+    public final static String randomItemKey = "RandomItem";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,7 +92,9 @@ public class MainActivity extends AppCompatActivity implements
                     .setShortLabel("Random hang")
                     .setLongLabel("Random hang")
                     .setIcon(Icon.createWithResource(this, R.drawable.application_icon))
-                    .setIntent(new Intent().setAction(Intent.ACTION_SEND).putExtra("RandomItem", "RandomItem"))
+                    .setIntent(new Intent(MainActivity.this, MainActivity.class)
+                            .setAction(Intent.ACTION_SEND)
+                            .putExtra(randomItemKey, randomItemKey))
                     .build();
             if (shortcutManager != null) {
                 shortcutManager.setDynamicShortcuts(Collections.singletonList(shortcut));

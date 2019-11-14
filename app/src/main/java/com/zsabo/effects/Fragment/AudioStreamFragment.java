@@ -2,7 +2,6 @@ package com.zsabo.effects.Fragment;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +14,6 @@ import androidx.fragment.app.Fragment;
 import androidx.leanback.widget.ArrayObjectAdapter;
 import androidx.leanback.widget.ClassPresenterSelector;
 import androidx.leanback.widget.ItemBridgeAdapter;
-import androidx.leanback.widget.Presenter;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
