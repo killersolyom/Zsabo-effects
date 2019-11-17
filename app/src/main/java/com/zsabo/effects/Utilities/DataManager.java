@@ -49,7 +49,7 @@ public class DataManager {
 
     public int getAlphaValue() {
         int value = readIntData(ALPHA_KEY);
-        return value == 0 ? 10 : value;
+        return value == 0 ? 15 : value;
     }
 
     private void writeIntData(int value, String key) {

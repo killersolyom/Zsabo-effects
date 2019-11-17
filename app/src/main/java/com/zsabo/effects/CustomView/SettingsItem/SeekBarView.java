@@ -28,7 +28,7 @@ public class SeekBarView extends ConstraintLayout {
 
     public void onBind(SeekBarObjectModel seekBarObjectModel) {
         title.setText(seekBarObjectModel.getTitle());
-        seekBar.setProgress((int) DataManager.getInstance().getAlphaValue());
+        seekBar.setProgress(DataManager.getInstance().getAlphaValue());
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
